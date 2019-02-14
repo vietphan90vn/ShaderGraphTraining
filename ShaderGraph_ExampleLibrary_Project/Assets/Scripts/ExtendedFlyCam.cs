@@ -32,17 +32,21 @@ public class ExtendedFlyCam : MonoBehaviour
 
     void Start()
     {
-        Screen.lockCursor = true;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
     {
-        rotationX += Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
-        rotationY += Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
-        rotationY = Mathf.Clamp(rotationY, -90, 90);
+        // Only control camera when lock Cursor
+        if (Cursor.lockState != CursorLockMode.None)
+        {
+            rotationX += Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
+            rotationY += Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
+            rotationY = Mathf.Clamp(rotationY, -90, 90);
 
-        transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
-        transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+            transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
+            transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+        }
 
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
@@ -65,7 +69,7 @@ public class ExtendedFlyCam : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.End))
         {
-            Screen.lockCursor = (Screen.lockCursor == false) ? true : false;
+            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
 }
