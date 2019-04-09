@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: RockChunk_Mat
   m_Shader: {fileID: 4800000, guid: 99701266ed15adf44a64a526e4992f29, type: 3}
   m_ShaderKeywords: 
@@ -22,6 +23,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: d4e84bc2b778dac478a0fff7ab88fb29, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_10FD5D39:
+        m_Texture: {fileID: 2800000, guid: 76150fc7e71239745b935b2ea28b822f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_123F0654:
         m_Texture: {fileID: 2800000, guid: d62e10b6728f47a439288f36c05e6597, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -31,6 +36,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_4DCE7F4D:
+        m_Texture: {fileID: 2800000, guid: a0c7255fa2ffc454ca08ad8428e8ae89, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_4F7CA5CB:
         m_Texture: {fileID: 2800000, guid: a0c7255fa2ffc454ca08ad8428e8ae89, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -46,11 +55,23 @@ Material:
         m_Texture: {fileID: 2800000, guid: a0c7255fa2ffc454ca08ad8428e8ae89, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_8ABA2A4:
+        m_Texture: {fileID: 2800000, guid: d4e84bc2b778dac478a0fff7ab88fb29, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_92FEF544:
         m_Texture: {fileID: 2800000, guid: 97c51e7b9aa8a70419203408048bb5a9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_947450DF:
+        m_Texture: {fileID: 2800000, guid: 375417e9180ba3143bf1c60a0cfccaa3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_A67D9976:
+        m_Texture: {fileID: 2800000, guid: 97c51e7b9aa8a70419203408048bb5a9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_B2243205:
         m_Texture: {fileID: 2800000, guid: 375417e9180ba3143bf1c60a0cfccaa3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -64,6 +85,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - Texture2D_DFF7FAB2:
         m_Texture: {fileID: 2800000, guid: 97c51e7b9aa8a70419203408048bb5a9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_E79A0228:
+        m_Texture: {fileID: 2800000, guid: d62e10b6728f47a439288f36c05e6597, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -108,10 +133,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_156415B: 0.48
+    - Vector1_1DCD811: 1
     - Vector1_46936154: 0.26
     - Vector1_5475FB6C: -17.17
     - Vector1_5C810CB9: 1.89
     - Vector1_61E82E5E: 0.16
+    - Vector1_FCB0E46A: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1

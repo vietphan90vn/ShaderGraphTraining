@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Spiderbot_Toon_Gradient_Mat
   m_Shader: {fileID: 4800000, guid: f444b972882950f4cadce8db99cf749b, type: 3}
   m_ShaderKeywords: 
@@ -19,6 +20,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_D0218ED9:
+        m_Texture: {fileID: 2800000, guid: 1b5c211881ce24c1d8a904279d9c6967, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_D70F023D:
         m_Texture: {fileID: 2800000, guid: 1b5c211881ce24c1d8a904279d9c6967, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}

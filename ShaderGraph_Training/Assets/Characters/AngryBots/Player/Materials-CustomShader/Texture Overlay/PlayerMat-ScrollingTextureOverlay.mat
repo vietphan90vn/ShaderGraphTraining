@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: PlayerMat-ScrollingTextureOverlay
   m_Shader: {fileID: 4800000, guid: 0f87b5c489cd440ee97bc276de2d0fe1, type: 3}
   m_ShaderKeywords: 
@@ -18,8 +19,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_12269555:
+        m_Texture: {fileID: 2800000, guid: 04de021bd91ba654488ac587e4c31e2b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_1704CE98:
+        m_Texture: {fileID: 2800000, guid: 299ad020b28b27e4db2a48b7e4375a50, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_25B87AD9:
         m_Texture: {fileID: 2800000, guid: 2da4b277e55414e498e12ef6bc54ee29, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_3FE317C5:
+        m_Texture: {fileID: 2800000, guid: 206adb28e14acb0479ae315df5e1d743, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_4082D78F:
@@ -36,6 +49,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - Texture2D_E00F4159:
         m_Texture: {fileID: 2800000, guid: 206adb28e14acb0479ae315df5e1d743, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_F38BE22D:
+        m_Texture: {fileID: 2800000, guid: 39c790ced3e137243bff34375839baa9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_F7A5FC85:
+        m_Texture: {fileID: 2800000, guid: 2da4b277e55414e498e12ef6bc54ee29, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture_25B87AD9:
@@ -100,6 +121,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Float_49E847C7: 1
+    - Vector1_1D93D313: 0.5
     - Vector1_49E847C7: 0.5
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -119,7 +141,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Vector2_3838134D: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_39E3DE97: {r: 0, g: 1, b: 0, a: 0}
+    - Vector2_8FA99C0F: {r: 0, g: 1, b: 0, a: 0}
     - Vector2_DF92E373: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

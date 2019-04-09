@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: EllenMat-NormalMapSprite
   m_Shader: {fileID: 4800000, guid: cc99ef875b5624dc38d6150f72a9658d, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
@@ -20,6 +21,14 @@ Material:
     m_TexEnvs:
     - Texture2D_38785C06:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_93B59928:
+        m_Texture: {fileID: 2800000, guid: 910108d1dd0bad243b5938a4fc87cc3f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_E4DE5A6:
+        m_Texture: {fileID: 2800000, guid: 429445aeeb26a441fb0e2d02fdc4614c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_F39A5738:

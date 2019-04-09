@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Spiderbot_Toon_Texture_Mat
   m_Shader: {fileID: 4800000, guid: 7e01849d261ef554797ca4776cfbf2b5, type: 3}
   m_ShaderKeywords: 
@@ -24,6 +25,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - Texture2D_6845C9D5:
         m_Texture: {fileID: 2800000, guid: aa0e61f4200ab4f0db10bf76833afae2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_7271A18D:
+        m_Texture: {fileID: 2800000, guid: e11f73d181fa94d5688f236a4bbeaa84, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_80887773:
+        m_Texture: {fileID: 2800000, guid: 1b5c211881ce24c1d8a904279d9c6967, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
