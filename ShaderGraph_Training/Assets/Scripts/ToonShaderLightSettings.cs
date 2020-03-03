@@ -5,17 +5,16 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class ToonShaderLightSettings : MonoBehaviour
 {
-
-	private Light light;
+	private Light _light;
 
 	void OnEnable()
 	{
-		light = GetComponent<Light>();
+		_light = GetComponent<Light>();
 	}
-	
+
 	void Update ()
 	{
 		Shader.SetGlobalVector("_ToonLightDirection", -transform.forward);
-		Shader.SetGlobalColor("_ToonLightColor", light.color);
+		Shader.SetGlobalColor("_ToonLightColor", _light.color);
 	}
 }
