@@ -760,7 +760,7 @@
             "m_Guid": ""
         }
     },
-    "m_Path": "BoatAttack",
+    "m_Path": "Custom",
     "m_ConcretePrecision": 1,
     "m_ActiveOutputNodeGuidSerialized": "b82b141b-f5ea-4bd7-b4ea-ec32d32bb002"
 }
