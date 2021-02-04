@@ -21,11 +21,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_138408F:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d746f37cc42bff54a9dfa2a3087f73c5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_15377BA8:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d746f37cc42bff54a9dfa2a3087f73c5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_4C686AF2:
@@ -33,31 +33,31 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_4D35DB7E:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: edd43e4033040904db9c2ca9447e5bd0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_7F0FF903:
-        m_Texture: {fileID: 2800000, guid: a38bbde32246b4179a69801f2c419883, type: 3}
+        m_Texture: {fileID: 2800000, guid: f3a0d5ecdfc38004d97ba990fa568e00, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_9204EA73:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d746f37cc42bff54a9dfa2a3087f73c5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_C8984614:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d746f37cc42bff54a9dfa2a3087f73c5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_E0F3BBEB:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: faa9035bf1c9ead49a46c3b519edb78c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_EC21B2B2:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: aff5636e34d0db341ab09aa8eb8b0721, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlbedoBase:
-        m_Texture: {fileID: 2800000, guid: f597e8cb2530c4edbbb3748b019db482, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9286ba0ce2bb33f4daa9615540e04000, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlbedoTexture1:
@@ -65,15 +65,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlbedoTexture2:
-        m_Texture: {fileID: 2800000, guid: 4b0afa21c623b4bd095b5a7ac663ac4d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1b650befc9c815948aaaa13bf306919b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlbedoTexture3:
-        m_Texture: {fileID: 2800000, guid: 2429736593cef7e48904aead5a341f1b, type: 3}
+        m_Texture: {fileID: 2800000, guid: b3fa6fb0eeafece41bd1c418ae753d4d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlbedoTexture4:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 117c7e9821e8281478d9c89961c6a1f0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlbedoTexture4_1:
@@ -131,7 +131,7 @@ Material:
     - Boolean_B6FAC1AC: 0
     - Boolean_EDDFC543: 0
     - Vector1_1546C224: 1
-    - Vector1_39B83F17: 0.25
+    - Vector1_39B83F17: 0.5
     - Vector1_48AAACAC: 1
     - Vector1_4ABBF116: 1
     - Vector1_554A7213: 1
@@ -142,8 +142,8 @@ Material:
     - Vector1_93001298: 1
     - Vector1_A1A0F05B: 1
     - Vector1_AABD7A26: 1
-    - Vector1_C7BF6805: 1
-    - Vector1_EA7EFF05: 4
+    - Vector1_C7BF6805: 0.1
+    - Vector1_EA7EFF05: 0.15
     - Vector1_FA42A817: 1
     - _AlphaClip: 0
     - _Blend: 0
@@ -168,10 +168,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_2C478B0A: {r: 0.7264151, g: 0.18845676, b: 0.2547301, a: 1}
+    - Color_2C478B0A: {r: 0.84313726, g: 1, b: 0.5235849, a: 1}
     - Color_56C4EEBD: {r: 1, g: 1, b: 1, a: 0}
     - Color_57BEA3D: {r: 1, g: 1, b: 1, a: 1}
-    - Color_57C0A91C: {r: 1, g: 1, b: 1, a: 0}
+    - Color_81034EBD: {r: 1, g: 1, b: 1, a: 0}
     - Color_A79D1A46: {r: 1, g: 1, b: 1, a: 0}
     - Vector2_17444A9D: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_71C330FA: {r: 4, g: 4, b: 0, a: 0}
