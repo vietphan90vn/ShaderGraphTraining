@@ -41,10 +41,8 @@ void Lighting_half(
 //  Real Lighting ----------
     half metallic = 0;
 
-    half3 tnormal = cross(ddy(positionWS), ddx(positionWS));
-    // tnormal = NormalizeNormalPerPixel(tnormal);
-    // tnormal = round(tnormal * 10.0h) / 10.0h;
-    half3 normalWS = NormalizeNormalPerPixel(tnormal);
+    half3 tnormal = normalize(cross(ddy(positionWS), ddx(positionWS)));
+    half3 normalWS = tnormal;
 
     viewDirectionWS = SafeNormalize(viewDirectionWS);
 
@@ -76,8 +74,8 @@ void Lighting_half(
     Lighting += LightingPhysicallyBased(brdfData, mainLight, normalWS, viewDirectionWS);
 
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i)
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i)
         {
             Light light = GetAdditionalLight(i, positionWS);
             Lighting += LightingPhysicallyBased(brdfData, light, normalWS, viewDirectionWS);

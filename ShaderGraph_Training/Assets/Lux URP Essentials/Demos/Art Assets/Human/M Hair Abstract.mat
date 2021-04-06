@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: ca6048fe8d3d2450486f31ea7921a893, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3b740f9ee33844e86b20f31140811ef7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Dither:
@@ -84,6 +84,7 @@ Material:
     - _Bias: 3
     - _Blend: 0
     - _BumpScale: 1
+    - _Coverage: 1
     - _Cull: 0
     - _Culling: 0
     - _Curvature: 0.5
@@ -91,6 +92,7 @@ Material:
     - _DstBlend: 0
     - _EnableDistanceFade: 0
     - _EnableMaskMap: 0
+    - _EnableVFACE: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -107,15 +109,16 @@ Material:
     - _RimPower: 2
     - _RimTransmissionIntensity: 1
     - _SecondaryLobe: 1
-    - _SecondarySpecularExponent: 0.615
-    - _SecondarySpecularShift: 0.12
+    - _SecondarySpecularExponent: 0.627
+    - _SecondarySpecularShift: 0.04
+    - _ShadowCull: 0
     - _ShadowStrength: 1
     - _Shadows: 1
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularExponent: 0.824
     - _SpecularHighlights: 1
-    - _SpecularShift: 0.17
+    - _SpecularShift: 0.06
     - _SrcBlend: 1
     - _Stencil: 0
     - _StencilComp: 8
@@ -141,3 +144,4 @@ Material:
     - _SpecColor: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
     - _SpecularTint: {r: 0.46226418, g: 0.45136172, b: 0.45136172, a: 1}
     - _SubsurfaceColor: {r: 1, g: 0.39999998, b: 0.24999997, a: 1}
+  m_BuildTextureStacks: []

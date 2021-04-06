@@ -107,4 +107,4 @@ Material:
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Specular: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 0.003921569}
     - _SubsurfaceColor: {r: 1, g: 0.39999998, b: 0.24999997, a: 1}
-    - _Tiling: {r: 4, g: 4, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 4, b: 0, a: 0}

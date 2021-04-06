@@ -25,7 +25,7 @@
         // Specular vs Metallic workflow
         [HideInInspector] _WorkflowMode("WorkflowMode", Float) = 1.0
         
-        [MainColor] _BaseColor("Color", Color) = (0.5,0.5,0.5,1)
+        [MainColor] _BaseColor("Color", Color) = (1,1,1,1)
         [MainTexture] _BaseMap("Albedo", 2D) = "white" {}
 
         _Cutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
@@ -152,7 +152,7 @@
             //--------------------------------------
             // GPU Instancing
             #pragma multi_compile_instancing
-            
+
             #pragma vertex LitPassVertex
             #pragma fragment LitPassFragmentRim
 
@@ -170,14 +170,8 @@
                 InputData inputData;
                 InitializeInputData(input, surfaceData.normalTS, inputData);
 
-                #ifdef _NORMALMAP
-                    half3 viewDirWS = half3(input.normalWS.w, input.tangentWS.w, input.bitangentWS.w);
-                #else
-                    half3 viewDirWS = input.viewDirWS;
-                #endif
-
                 #if defined(_RIMLIGHTING)
-                    half rim = saturate(1.0h - saturate( dot(inputData.normalWS, normalize(viewDirWS)) ) );
+                    half rim = saturate(1.0h - saturate( dot(inputData.normalWS, inputData.viewDirectionWS)));
                     half power = _RimPower;
                     UNITY_BRANCH if(_RimFrequency > 0 ) {
                         half perPosition = lerp(0.0h, 1.0h, dot(1.0h, frac(UNITY_MATRIX_M._m03_m13_m23) * 2.0h - 1.0h ) * _RimPerPositionFrequency ) * 3.1416h;
@@ -185,6 +179,9 @@
                     }
                     surfaceData.emission += pow(rim, power) * _RimColor.rgb * _RimColor.a;
                 #endif
+
+                surfaceData.clearCoatMask = 0;
+                surfaceData.clearCoatSmoothness = 1;
 
                 half4 color = LightweightFragmentPBR(inputData, surfaceData.albedo, surfaceData.metallic, surfaceData.specular, surfaceData.smoothness, surfaceData.occlusion, surfaceData.emission, surfaceData.alpha);
 
@@ -217,6 +214,7 @@
             //--------------------------------------
             // GPU Instancing
             #pragma multi_compile_instancing
+
             #pragma shader_feature _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
             #pragma vertex ShadowPassVertex

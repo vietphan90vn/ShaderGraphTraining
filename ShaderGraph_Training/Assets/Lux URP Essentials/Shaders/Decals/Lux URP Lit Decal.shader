@@ -10,6 +10,8 @@
         _ReceiveShadows                                 ("Receive Shadows", Float) = 1.0
         [Toggle(ORTHO_SUPPORT)]
         _OrthoSpport                                    ("Enable Orthographic Support", Float) = 0
+        [Toggle(HQ_SAMPLING)]
+        _HQSampling                                     ("Enable HQ Sampling", Float) = 0
 
         [Header(Surface Inputs)]
         [Space(5)]
@@ -24,26 +26,26 @@
 
         [Space(10)]
         [Toggle(_NORMALMAP)] _ApplyNormal               ("Enable Normal Map", Float) = 1.0
-        [NoScaleOffset] _BumpMap                        ("    Normal Map", 2D) = "bump" {}
-        _BumpScale                                      ("    Normal Scale", Float) = 1.0
+        [NoScaleOffset] _BumpMap                        ("     Normal Map", 2D) = "bump" {}
+        _BumpScale                                      ("     Normal Scale", Float) = 1.0
 
         [Header(Mask Map)]
         [Space(5)]
         [Toggle(_COMBINEDTEXTURE)] _CombinedTexture     ("Enable Mask Map", Float) = 0.0
-        [NoScaleOffset] _MaskMap                        ("    Metallness (R) Occlusion (G) Emission (B) Smoothness (A) ", 2D) = "bump" {}
-        [HDR]_EmissionColor                             ("    Emission Color", Color) = (0,0,0,0)
-        _Occlusion                                      ("    Occlusion", Range(0.0, 1.0)) = 1.0
+        [NoScaleOffset] _MaskMap                        ("     Metallness (R) Occlusion (G) Emission (B) Smoothness (A) ", 2D) = "bump" {}
+        [HDR]_EmissionColor                             ("     Emission Color", Color) = (0,0,0,0)
+        _Occlusion                                      ("     Occlusion", Range(0.0, 1.0)) = 1.0
 
         [Header(Distance Fading)]
         [Space(5)]
-        [LuxLWRPDistanceFadeDrawer]
+        [LuxURPDistanceFadeDrawer]
         _DistanceFade                                   ("Distance Fade Params", Vector) = (2500, 0.001, 0, 0)
 
         [Header(Stencil)]
         [Space(5)]
         [IntRange] _StencilRef                          ("Stencil Reference", Range (0, 255)) = 0
-        [IntRange] _ReadMask                            ("    Read Mask", Range (0, 255)) = 255
-        [IntRange] _WriteMask                           ("    Write Mask", Range (0, 255)) = 255
+        [IntRange] _ReadMask                            ("     Read Mask", Range (0, 255)) = 255
+        [IntRange] _WriteMask                           ("     Write Mask", Range (0, 255)) = 255
         [Enum(UnityEngine.Rendering.CompareFunction)]
         _StencilCompare                                 ("Stencil Comparison", Int) = 8 // always
 
@@ -53,7 +55,7 @@
         _SpecularHighlights                             ("Enable Specular Highlights", Float) = 1.0
         [ToggleOff]
         _EnvironmentReflections                         ("Environment Reflections", Float) = 1.0
-        
+
     }
 
     SubShader
@@ -104,6 +106,7 @@
             #pragma shader_feature _RECEIVE_SHADOWS_OFF
 
             #pragma shader_feature_local ORTHO_SUPPORT
+            #pragma shader_feature_local HQ_SAMPLING
 
             #define _SPECULAR_SETUP 1
 
@@ -165,6 +168,7 @@
             #if defined(_COMBINEDTEXTURE)
                 TEXTURE2D(_MaskMap); SAMPLER(sampler_MaskMap);
             #endif
+            float4 _BaseMap_TexelSize;
 
             struct VertexInput
             {
@@ -175,7 +179,7 @@
 
             struct VertexOutput
             {
-                float4 positionCS : POSITION;
+                float4 positionCS : SV_POSITION;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
                 UNITY_VERTEX_OUTPUT_STEREO
 
@@ -255,6 +259,36 @@
 
             #define oneMinusDielectricSpecConst half(1.0 - 0.04)
 
+
+        //  HQ decal sampling from: http://www.humus.name/index.php?page=3D&ID=84
+        //  Decal MipmapLevel to avoid the 2x2 pixels artefacts on the edges where the decal is projected to.
+            float2 ComputeDecalDDX(VertexOutput input, float2 uv, float2 decalUV) {
+                float2 ScreenDeltaX = float2(1, 0);
+                float depth0 = LOAD_TEXTURE2D_X(_CameraDepthTexture, _CameraDepthTexture_TexelSize.zw * uv - ScreenDeltaX).x;
+                depth0 = LinearEyeDepth(depth0, _ZBufferParams);
+                float depth1 = LOAD_TEXTURE2D_X(_CameraDepthTexture, _CameraDepthTexture_TexelSize.zw * uv + ScreenDeltaX).x;
+                depth1 = LinearEyeDepth(depth1, _ZBufferParams);
+
+                float2 UvDiffX0 = decalUV - ((input.camPosOS + input.viewRayOS.xyz * depth0).xz + float2(0.5, 0.5));
+                float2 UvDiffX1 = ((input.camPosOS + input.viewRayOS.xyz * depth1).xz + float2(0.5, 0.5)) - decalUV;
+                
+                return dot(UvDiffX0, UvDiffX0) < dot(UvDiffX1, UvDiffX1) ? UvDiffX0 : UvDiffX1;
+            }
+            float2 ComputeDecalDDY(VertexOutput input, float2 uv, float2 decalUV) {
+                float2 ScreenDeltaY = float2(0, 1);
+                float depth0 = LOAD_TEXTURE2D_X(_CameraDepthTexture, _CameraDepthTexture_TexelSize.zw * uv - ScreenDeltaY).x;
+                depth0 = LinearEyeDepth(depth0, _ZBufferParams);
+                float depth1 = LOAD_TEXTURE2D_X(_CameraDepthTexture, _CameraDepthTexture_TexelSize.zw * uv + ScreenDeltaY).x;
+                depth1 = LinearEyeDepth(depth1, _ZBufferParams);
+
+                float2 UvDiffY0 = decalUV - ((input.camPosOS + input.viewRayOS.xyz * depth0).xz + float2(0.5, 0.5));
+                float2 UvDiffY1 = ((input.camPosOS + input.viewRayOS.xyz * depth1).xz + float2(0.5, 0.5)) - decalUV;
+                
+                return dot(UvDiffY0, UvDiffY0) < dot(UvDiffY1, UvDiffY1) ? UvDiffY0 : UvDiffY1;
+            }
+        //  HQ decal sampling END
+
+
             half4 frag (VertexOutput input ) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(input);
@@ -290,13 +324,20 @@
                         #endif
                         
                     //  Get ortho Depth
+                    //  Old code, no idea why this ever worked...
+                        // depthOrtho = lerp(_ProjectionParams.y, _ProjectionParams.z, depthOrtho);
+                        // float2 rayOrtho = -float2( unity_OrthoParams.xy * ( input.screenUV.xy - 0.5) * 2 /* to clip space */);
+                        // float4 vposOrtho = float4(rayOrtho, -depthOrtho, 1);
+                        // float3 wposOrtho = mul(unity_CameraToWorld, vposOrtho).xyz;
+                        // wposOrtho -= _WorldSpaceCameraPos * 2; // TODO: Why * 2 ????
+                        // wposOrtho *= -1;
+                        // float3 positionOrthoOS = mul( GetWorldToObjectMatrix(), float4(wposOrtho, 1)).xyz;
+                        
                         depthOrtho = lerp(_ProjectionParams.y, _ProjectionParams.z, depthOrtho);
-                        float2 rayOrtho = -float2( unity_OrthoParams.xy * ( input.screenUV.xy - 0.5) * 2 /* to clip space */);
+                        float2 rayOrtho = float2( unity_OrthoParams.xy * ( input.screenUV.xy - 0.5) * 2 /* to clip space */);
                         float4 vposOrtho = float4(rayOrtho, -depthOrtho, 1);
-
                         float3 wposOrtho = mul(unity_CameraToWorld, vposOrtho).xyz;
-                        wposOrtho -= _WorldSpaceCameraPos * 2; // TODO: Why * 2 ????
-                        wposOrtho *= -1;
+                        
                         float3 positionOrthoOS = mul( GetWorldToObjectMatrix(), float4(wposOrtho, 1)).xyz;
                         positionOS = positionOrthoOS;
                         positionWS = wposOrtho;
@@ -320,8 +361,18 @@
                 clip(float3(0.5, 0.5, 0.5) - abs(positionOS.xyz));
 
                 float2 texUV = positionOS.xz + float2(0.5, 0.5);
-                half4 col = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, texUV) * _Color;
-            
+
+            //  HQ Decal Sampling
+                #if defined(HQ_SAMPLING) && !defined(ORTHO_SUPPORT)
+                    float2 UvPixelDiffX = ComputeDecalDDX(input, uv, texUV) * _BaseMap_TexelSize.zw;
+                    float2 UvPixelDiffY = ComputeDecalDDY(input, uv, texUV) * _BaseMap_TexelSize.zw;
+                    float MaxDiff = max(dot(UvPixelDiffX, UvPixelDiffX), dot(UvPixelDiffY, UvPixelDiffY));
+                    float Mip = 0.5 * log2(MaxDiff);
+                    half4 col = SAMPLE_TEXTURE2D_LOD(_BaseMap, sampler_BaseMap, texUV, Mip) * _Color;
+                #else
+                    half4 col = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, texUV) * _Color;
+                #endif
+
             //  Distance Fade
                 #if defined(ORTHO_SUPPORT)
                     half alpha = col.a * ((unity_OrthoParams.w == 1.0h) ? 1.0h : input.fade);
@@ -331,7 +382,11 @@
 
 
                 #if defined(_COMBINEDTEXTURE)
-                    half4 combinedTextureSample = SAMPLE_TEXTURE2D(_MaskMap, sampler_MaskMap, texUV);
+                    #if defined(HQ_SAMPLING) && !defined(ORTHO_SUPPORT)
+                        half4 combinedTextureSample = SAMPLE_TEXTURE2D_LOD(_MaskMap, sampler_MaskMap, texUV, Mip);
+                    #else
+                        half4 combinedTextureSample = SAMPLE_TEXTURE2D(_MaskMap, sampler_MaskMap, texUV);
+                    #endif
                     half3 specular = lerp(_SpecColor, col.rgb, combinedTextureSample.rrr);
                 //  Remap albedo
                     col.rgb *= oneMinusDielectricSpecConst - combinedTextureSample.rrr * oneMinusDielectricSpecConst;
@@ -366,10 +421,16 @@
                 #endif
 
                 #if defined(_NORMALMAP)
-                    #if BUMP_SCALE_NOT_SUPPORTED
-                        half3 normalTS = UnpackNormal( SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, texUV) );
+                    #if defined(HQ_SAMPLING) && !defined(ORTHO_SUPPORT)
+                        half4 normalSample = SAMPLE_TEXTURE2D_LOD(_BumpMap, sampler_BumpMap, texUV, Mip);
                     #else
-                        half3 normalTS = UnpackNormalScale( SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, texUV), _BumpScale);
+                        half4 normalSample = SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, texUV);
+                    #endif
+
+                    #if BUMP_SCALE_NOT_SUPPORTED
+                        half3 normalTS = UnpackNormal(normalSample);
+                    #else
+                        half3 normalTS = UnpackNormalScale(normalSample, _BumpScale);
                     #endif
                     half3 normalWS = TransformTangentToWorld(normalTS, half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
                     inputData.normalWS = ReorientNormalInWorldSpace(inputData.normalWS, normalWS, input.normalWS.xyz);

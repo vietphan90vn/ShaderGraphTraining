@@ -9,12 +9,13 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Sponza_bentNormals_AO
   m_Shader: {fileID: 4800000, guid: fc65687ee1044b44a8ad796f88d69a92, type: 3}
-  m_ShaderKeywords: _BENTNORMAL _ENABLE_GEOMETRIC_SPECULAR_AA _OCCLUSIONMAP
+  m_ShaderKeywords: _BENTNORMAL _OCCLUSIONMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2050
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -60,6 +61,10 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
+    - _CameraFadeDist: 1
+    - _CameraFadeShadows: 0
+    - _CameraFadingEnabled: 0
+    - _CameraShadowFadeDist: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
@@ -77,10 +82,10 @@ Material:
     - _FoldRimLightingInputs: 0
     - _FoldStencilOptions: 0
     - _FoldSurfaceInputs: 1
-    - _FoldSurfaceOptions: 0
+    - _FoldSurfaceOptions: 1
     - _GItoAO: 10
     - _GItoAOBias: 0
-    - _GeometricSpecularAA: 1
+    - _GeometricSpecularAA: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -118,6 +123,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+  m_BuildTextureStacks: []
 --- !u!114 &4551409336597436381
 MonoBehaviour:
   m_ObjectHideFlags: 11

@@ -14,6 +14,7 @@ Shader "Lux URP/Clear Coat"
         
 
         [Header(Clear Coat Inputs)]
+        [Space(5)]
         _ClearCoatThickness         ("Clear Coat", Range(0.0, 1.0)) = 0.5
         _ClearCoatSmoothness        ("Clear Coat Smoothness", Range(0.0, 1.0)) = 0.5
         _ClearCoatSpecular          ("Clear Coat Specular", Color) = (0.2, 0.2, 0.2)
@@ -26,11 +27,18 @@ Shader "Lux URP/Clear Coat"
         
 
         [Header(Base Layer Inputs)]
+        [Space(5)]
         [MainColor]
         _BaseColor                  ("Color", Color) = (1,1,1,1)
+        
+        [Toggle(_BASECOLORMAP)]
+        _EnableBaseMap              ("Enable Base Layer Albedo Map", Float) = 0.0
+        [MainTexture]
+        _BaseMap                    ("Base Layer Albedo (RGB)", 2D) = "white" {}
+        
         [Toggle(_SECONDARYCOLOR)]
         _EnableSecColor             ("Enable Secondary Color", Float) = 0.0
-        _SecondaryColor             ("    Secondary Color", Color) = (1,1,1,1)
+        _SecondaryColor             ("     Secondary Color", Color) = (1,1,1,1)
 
         [Space(5)]
         _Smoothness                 ("Smoothness", Range(0.0, 1.0)) = 0.5
@@ -41,14 +49,13 @@ Shader "Lux URP/Clear Coat"
         [Space(5)]
         [Toggle(_NORMALMAP)]
         _ApplyNormal                ("Enable Normal Map", Float) = 0.0
-        _BumpMap                    ("    Normal Map", 2D) = "bump" {}
-        _BumpScale                  ("    Normal Scale", Float) = 1.0
+        _BumpMap                    ("     Normal Map", 2D) = "bump" {}
+        _BumpScale                  ("     Normal Scale", Float) = 1.0
 
         [Toggle(_MASKMAPSECONDARY)]
         _EnableSecondaryMask        ("Enable Base Layer Mask Map", Float) = 0.0
-        [NoScaleOffset]
-        _SecondaryMask              ("    Metallic (R) Occlusion (G) Smoothness (A)", 2D) = "white" {}
-        _Occlusion                  ("    Occlusion", Range(0.0, 1.0)) = 1.0
+        _SecondaryMask              ("     Metallic (R) Occlusion (G) Smoothness (A)", 2D) = "white" {}
+        _Occlusion                  ("     Occlusion", Range(0.0, 1.0)) = 1.0
 
         [Toggle(_SECONDARYLOBE)]
         _EnableSecondaryLobe        ("Enable secondary Reflection Sample", Float) = 0.0
@@ -58,18 +65,18 @@ Shader "Lux URP/Clear Coat"
         [Space(5)]
         [Toggle(_RIMLIGHTING)]
         _Rim                        ("Enable Rim Lighting", Float) = 0
-        [HDR] _RimColor                   ("Rim Color", Color) = (0.5,0.5,0.5,1)
+        [HDR] _RimColor             ("Rim Color", Color) = (0.5,0.5,0.5,1)
         _RimPower                   ("Rim Power", Float) = 2
         _RimFrequency               ("Rim Frequency", Float) = 0
-        _RimMinPower                ("    Rim Min Power", Float) = 1
-        _RimPerPositionFrequency    ("    Rim Per Position Frequency", Range(0.0, 1.0)) = 1
+        _RimMinPower                ("     Rim Min Power", Float) = 1
+        _RimPerPositionFrequency    ("     Rim Per Position Frequency", Range(0.0, 1.0)) = 1
 
 
         [Header(Stencil)]
         [Space(5)]
         [IntRange] _Stencil         ("Stencil Reference", Range (0, 255)) = 0
-        [IntRange] _ReadMask        ("    Read Mask", Range (0, 255)) = 255
-        [IntRange] _WriteMask       ("    Write Mask", Range (0, 255)) = 255
+        [IntRange] _ReadMask        ("     Read Mask", Range (0, 255)) = 255
+        [IntRange] _WriteMask       ("     Write Mask", Range (0, 255)) = 255
         [Enum(UnityEngine.Rendering.CompareFunction)]
         _StencilComp                ("Stencil Comparison", Int) = 8     // always – terrain should be the first thing being rendered anyway
         [Enum(UnityEngine.Rendering.StencilOp)]
@@ -133,6 +140,7 @@ Shader "Lux URP/Clear Coat"
 
             // -------------------------------------
             // Material Keywords
+            #pragma shader_feature_local _BASECOLORMAP
             #pragma shader_feature_local _SECONDARYCOLOR
             //#pragma shader_feature_local _ADJUSTSPEC
             #pragma shader_feature_local _MASKMAP
@@ -188,25 +196,26 @@ Shader "Lux URP/Clear Coat"
                 vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
                 VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS, input.tangentOS);
 
-                half3 viewDirWS = GetCameraPositionWS() - vertexInput.positionWS;
+                float3 viewDirWS = GetCameraPositionWS() - vertexInput.positionWS;
                 half3 vertexLight = VertexLighting(vertexInput.positionWS, normalInput.normalWS);
                 half fogFactor = ComputeFogFactor(vertexInput.positionCS.z);
 
-                output.uv.xy = TRANSFORM_TEX(input.texcoord, _BumpMap);
+                //output.uv.xy = TRANSFORM_TEX(input.texcoord, _BumpMap);
+                output.uv.xy = input.texcoord;
+                
+                // already normalized from normal transform to WS.
+                output.normalWS = normalInput.normalWS;
+                output.viewDirWS = viewDirWS;
                 
                 #if defined(_MASKMAP)
                     output.uv.zw = TRANSFORM_TEX(input.texcoord, _CoatMask);
                 #endif  
 
                 #if defined(_NORMALMAP)
-                    output.normalWS = half4(normalInput.normalWS, viewDirWS.x);
-                    output.tangentWS = half4(normalInput.tangentWS, viewDirWS.y);
-                    output.bitangentWS = half4(normalInput.bitangentWS, viewDirWS.z);
-                #else
-                    output.normalWS = NormalizeNormalPerVertex(normalInput.normalWS);
-                    output.viewDirWS = viewDirWS;
+                    float sign = input.tangentOS.w * GetOddNegativeScale();
+                    output.tangentWS = float4(normalInput.tangentWS, sign);
                 #endif
-
+                
                 OUTPUT_LIGHTMAP_UV(input.lightmapUV, unity_LightmapST, output.lightmapUV);
                 OUTPUT_SH(output.normalWS.xyz, output.vertexSH);
                 
@@ -244,24 +253,33 @@ Shader "Lux URP/Clear Coat"
                 outSurfaceData.specular = half3(0.0h, 0.0h, 0.0h);
                 
                 outSurfaceData.smoothness = _Smoothness;
+
+
+                #if defined (_BASECOLORMAP)
+                    float2 albedoUV = TRANSFORM_TEX(uv, _BaseMap);
+                    outSurfaceData.albedo = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, albedoUV).rgb;
+                #endif
+
             
             //  Normal Map
                 #if defined (_NORMALMAP)
-                    /*half4 sampleNormal = SAMPLE_TEXTURE2D(_MaskMap, sampler_MaskMap, uv);
-                    half3 tangentNormal;
-                    tangentNormal.xy = sampleNormal.ag * 2 - 1;
-                    tangentNormal.xy *= _BumpScale;
-                    tangentNormal.z = sqrt(1.0 - dot(tangentNormal.xy, tangentNormal.xy));  
-                    outSurfaceData.normalTS = tangentNormal;
-                    outSurfaceData.smoothness = sampleNormal.b * _Smoothness;*/
-                    outSurfaceData.normalTS = SampleNormal(uv.xy, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
+                    // half4 sampleNormal = SAMPLE_TEXTURE2D(_MaskMap, sampler_MaskMap, uv);
+                    // half3 tangentNormal;
+                    // tangentNormal.xy = sampleNormal.ag * 2 - 1;
+                    // tangentNormal.xy *= _BumpScale;
+                    // tangentNormal.z = sqrt(1.0 - dot(tangentNormal.xy, tangentNormal.xy));  
+                    // outSurfaceData.normalTS = tangentNormal;
+                    // outSurfaceData.smoothness = sampleNormal.b * _Smoothness;
+                    float2 normalUV = TRANSFORM_TEX(uv, _BumpMap);
+                    outSurfaceData.normalTS = SampleNormal(normalUV, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
                 #else
                     outSurfaceData.normalTS = half3(0,0,1);
                 #endif
 
             //  Secondary Mask
                 #if defined(_MASKMAPSECONDARY)
-                    half4 secondaryMaskSample = SAMPLE_TEXTURE2D(_SecondaryMask, sampler_SecondaryMask, uv.xy);
+                    float2 secondaryMaskUV = TRANSFORM_TEX(uv, _SecondaryMask);
+                    half4 secondaryMaskSample = SAMPLE_TEXTURE2D(_SecondaryMask, sampler_SecondaryMask, secondaryMaskUV);
                     outSurfaceData.metallic *= secondaryMaskSample.r;
                     outSurfaceData.occlusion = lerp(1, secondaryMaskSample.g, _Occlusion);
                     outSurfaceData.smoothness *= secondaryMaskSample.a;
@@ -283,21 +301,20 @@ Shader "Lux URP/Clear Coat"
             void InitializeInputData(VertexOutput input, half3 normalTS, out InputData inputData)
             {
                 inputData = (InputData)0;
-                #ifdef _ADDITIONAL_LIGHTS
+                #if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
                     inputData.positionWS = input.positionWS;
                 #endif
                 
-                #if defined(_NORMALMAP)
-                    half3 viewDirWS = half3(input.normalWS.w, input.tangentWS.w, input.bitangentWS.w);
-                //  normalTS.z *= facing;
-                    inputData.normalWS = TransformTangentToWorld(normalTS, half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
+                half3 viewDirWS = SafeNormalize(input.viewDirWS);
+                #ifdef _NORMALMAP 
+                    float sgn = input.tangentWS.w;      // should be either +1 or -1
+                    float3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
+                    inputData.normalWS = TransformTangentToWorld(normalTS, half3x3(input.tangentWS.xyz, bitangent.xyz, input.normalWS.xyz));
                 #else
-                    half3 viewDirWS = input.viewDirWS;
                     inputData.normalWS = input.normalWS; // * facing;
                 #endif
 
                 inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
-                viewDirWS = SafeNormalize(viewDirWS);
                 inputData.viewDirectionWS = viewDirWS;
 
                 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
@@ -337,24 +354,24 @@ Shader "Lux URP/Clear Coat"
 
             //  Apply lighting
                 half4 color = LuxClearCoatFragmentPBR(
-                        inputData, 
-                        
-                        surfaceData.albedo,
-                        
-                        surfaceData.metallic, 
-                        surfaceData.specular, 
-                        surfaceData.smoothness, 
-                        surfaceData.occlusion, 
-                        surfaceData.emission, 
-                        surfaceData.alpha,
-
-                        surfaceData.clearCoatSmoothness,
-                        surfaceData.clearCoatThickness,
-                        _ClearCoatSpecular,
-                        NormalizeNormalPerPixel(input.normalWS.xyz),
-
+                    inputData, 
+                    surfaceData.albedo,
+                    surfaceData.metallic, 
+                    surfaceData.specular, 
+                    surfaceData.smoothness, 
+                    surfaceData.occlusion, 
+                    surfaceData.emission, 
+                    surfaceData.alpha,
+                    surfaceData.clearCoatSmoothness,
+                    surfaceData.clearCoatThickness,
+                    _ClearCoatSpecular,
+                    NormalizeNormalPerPixel(input.normalWS.xyz),
+                    #if defined (_BASECOLORMAP)
+                        _BaseColor * surfaceData.albedo,
+                    #else
                         _BaseColor,
-                        _SecondaryColor
+                    #endif
+                    _SecondaryColor
                 );    
             //  Add fog
                 color.rgb = MixFog(color.rgb, inputData.fogCoord);
@@ -511,6 +528,8 @@ Shader "Lux URP/Clear Coat"
                 outSurfaceData.normalTS = half3(0,0,1);
                 outSurfaceData.occlusion = 1;
                 outSurfaceData.emission = 0;
+                outSurfaceData.clearCoatMask = 0;
+                outSurfaceData.clearCoatSmoothness = 1;
             }
 
         //  Finally include the meta pass related stuff  

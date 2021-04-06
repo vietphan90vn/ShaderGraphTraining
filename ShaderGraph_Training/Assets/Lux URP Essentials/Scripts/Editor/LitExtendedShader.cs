@@ -46,49 +46,57 @@ namespace UnityEditor.Rendering.URP.ShaderGUI
                 foreach (var obj in blendModeProp.targets)
                     MaterialChanged((Material)obj);
             }
+
+        //  The missing piece here
+            EditorGUI.BeginChangeCheck();
+
             base.DrawSurfaceOptions(material);
 
-GUILayout.Space(10);
-EditorGUILayout.LabelField("Advanced Options", EditorStyles.boldLabel);
-EditorGUI.BeginChangeCheck();
+        //  The missing piece here... otherwise changes made above would not be applied?!
+            if (EditorGUI.EndChangeCheck()) {
+                MaterialChanged(material);
+            }
 
-var zTest = (CompareFunction)material.GetInt("_ZTest");
-zTest = (UnityEngine.Rendering.CompareFunction) EditorGUILayout.EnumPopup("ZTest", zTest);
+        //  Lux URP Essentials add ons
+            GUILayout.Space(10);
+            EditorGUILayout.LabelField("Advanced Options", EditorStyles.boldLabel);
+            EditorGUI.BeginChangeCheck();
+
+            var zTest = (CompareFunction)material.GetInt("_ZTest");
+            zTest = (UnityEngine.Rendering.CompareFunction) EditorGUILayout.EnumPopup("ZTest", zTest);
 
 
-var stencil = material.GetInt("_Stencil");
-stencil = EditorGUILayout.IntSlider("Stencil Reference", stencil, 0, 255);
+            var stencil = material.GetInt("_Stencil");
+            stencil = EditorGUILayout.IntSlider("Stencil Reference", stencil, 0, 255);
 
-var readMask = material.GetInt("_ReadMask");
-readMask = EditorGUILayout.IntSlider("    Read Mask", readMask, 0, 255);
+            var readMask = material.GetInt("_ReadMask");
+            readMask = EditorGUILayout.IntSlider("    Read Mask", readMask, 0, 255);
 
-var writeMask = material.GetInt("_WriteMask");
-writeMask = EditorGUILayout.IntSlider("    Write Mask", writeMask, 0, 255);
+            var writeMask = material.GetInt("_WriteMask");
+            writeMask = EditorGUILayout.IntSlider("    Write Mask", writeMask, 0, 255);
 
-UnityEngine.Rendering.CompareFunction stencilComp = (CompareFunction)material.GetFloat("_StencilComp");
-stencilComp = (UnityEngine.Rendering.CompareFunction) EditorGUILayout.EnumPopup("Stencil Comparison", stencilComp);
+            UnityEngine.Rendering.CompareFunction stencilComp = (CompareFunction)material.GetFloat("_StencilComp");
+            stencilComp = (UnityEngine.Rendering.CompareFunction) EditorGUILayout.EnumPopup("Stencil Comparison", stencilComp);
 
-UnityEngine.Rendering.StencilOp stencilOp = (UnityEngine.Rendering.StencilOp)material.GetFloat("_StencilOp");
-stencilOp = (UnityEngine.Rendering.StencilOp)EditorGUILayout.EnumPopup("Stencil Pass Op", stencilOp);
+            UnityEngine.Rendering.StencilOp stencilOp = (UnityEngine.Rendering.StencilOp)material.GetFloat("_StencilOp");
+            stencilOp = (UnityEngine.Rendering.StencilOp)EditorGUILayout.EnumPopup("Stencil Pass Op", stencilOp);
 
-UnityEngine.Rendering.StencilOp stencilFail = (UnityEngine.Rendering.StencilOp)material.GetFloat("_StencilFail");
-stencilFail = (UnityEngine.Rendering.StencilOp)EditorGUILayout.EnumPopup("Stencil Fail Op", stencilFail);
+            UnityEngine.Rendering.StencilOp stencilFail = (UnityEngine.Rendering.StencilOp)material.GetFloat("_StencilFail");
+            stencilFail = (UnityEngine.Rendering.StencilOp)EditorGUILayout.EnumPopup("Stencil Fail Op", stencilFail);
 
-UnityEngine.Rendering.StencilOp stencilZFail = (UnityEngine.Rendering.StencilOp)material.GetFloat("_StencilZFail");
-stencilZFail = (UnityEngine.Rendering.StencilOp)EditorGUILayout.EnumPopup("Stencil Z Fail Op", stencilZFail);
+            UnityEngine.Rendering.StencilOp stencilZFail = (UnityEngine.Rendering.StencilOp)material.GetFloat("_StencilZFail");
+            stencilZFail = (UnityEngine.Rendering.StencilOp)EditorGUILayout.EnumPopup("Stencil Z Fail Op", stencilZFail);
 
-if (EditorGUI.EndChangeCheck()) {
-    material.SetInt("_ZTest", (int)zTest);
-    material.SetInt("_Stencil", stencil);
-    material.SetInt("_ReadMask", readMask);
-    material.SetInt("_WriteMask", writeMask);
-    material.SetInt("_StencilComp", (int)stencilComp);
-    material.SetInt("_StencilOp", (int)stencilOp);
-    material.SetInt("_StencilFail", (int)stencilFail);
-    material.SetInt("_StencilZFail", (int)stencilZFail);
-    
-}
-
+            if (EditorGUI.EndChangeCheck()) {
+                material.SetInt("_ZTest", (int)zTest);
+                material.SetInt("_Stencil", stencil);
+                material.SetInt("_ReadMask", readMask);
+                material.SetInt("_WriteMask", writeMask);
+                material.SetInt("_StencilComp", (int)stencilComp);
+                material.SetInt("_StencilOp", (int)stencilOp);
+                material.SetInt("_StencilFail", (int)stencilFail);
+                material.SetInt("_StencilZFail", (int)stencilZFail);
+            }
         }
 
         // material main surface inputs
@@ -99,47 +107,45 @@ if (EditorGUI.EndChangeCheck()) {
             DrawEmissionProperties(material, true);
             DrawTileOffset(materialEditor, baseMapProp);
 
-GUILayout.Space(10);
-EditorGUILayout.LabelField("Advanced Options", EditorStyles.boldLabel);
-EditorGUI.BeginChangeCheck();
+        //  Lux URP Add Ons
+            GUILayout.Space(10);
+            EditorGUILayout.LabelField("Advanced Options", EditorStyles.boldLabel);
+            EditorGUI.BeginChangeCheck();
 
-var enableRim = material.GetFloat("_Rim");
-var b_enableRim = (enableRim == 0.0) ? false : true;
-b_enableRim = EditorGUILayout.Toggle("Enable Rim Lighting", b_enableRim);
+            var enableRim = material.GetFloat("_Rim");
+            var b_enableRim = (enableRim == 0.0) ? false : true;
+            b_enableRim = EditorGUILayout.Toggle("Enable Rim Lighting", b_enableRim);
 
-var rimColor = material.GetColor("_RimColor");
-rimColor = EditorGUILayout.ColorField("Rim Color", rimColor);
+            var rimColor = material.GetColor("_RimColor");
+            rimColor = EditorGUILayout.ColorField("Rim Color", rimColor);
 
-var rimPower = material.GetFloat("_RimPower");
-rimPower = EditorGUILayout.FloatField("Rim Power", rimPower);
+            var rimPower = material.GetFloat("_RimPower");
+            rimPower = EditorGUILayout.FloatField("Rim Power", rimPower);
 
-var rimFrequency = material.GetFloat("_RimFrequency");
-rimFrequency = EditorGUILayout.Slider("Rim Frequency", rimFrequency, 0.0f, 20.0f);
+            var rimFrequency = material.GetFloat("_RimFrequency");
+            rimFrequency = EditorGUILayout.Slider("Rim Frequency", rimFrequency, 0.0f, 20.0f);
 
-var rimMinPower = material.GetFloat("_RimMinPower");
-rimMinPower = EditorGUILayout.FloatField("    Rim Min Power", rimMinPower);
+            var rimMinPower = material.GetFloat("_RimMinPower");
+            rimMinPower = EditorGUILayout.FloatField("    Rim Min Power", rimMinPower);
 
-var rimPerPositionFrequency = material.GetFloat("_RimPerPositionFrequency");
-rimPerPositionFrequency = EditorGUILayout.Slider("    Rim Per Position Frequency", rimPerPositionFrequency, 0.0f, 1.0f);
+            var rimPerPositionFrequency = material.GetFloat("_RimPerPositionFrequency");
+            rimPerPositionFrequency = EditorGUILayout.Slider("    Rim Per Position Frequency", rimPerPositionFrequency, 0.0f, 1.0f);
 
+            if (EditorGUI.EndChangeCheck()) {
+               if(b_enableRim) {
+                    material.SetFloat("_Rim", 1.0f);
+               }
+               else {
+                    material.SetFloat("_Rim", 0.0f);
+               }
 
-if (EditorGUI.EndChangeCheck()) {
-   if(b_enableRim) {
-        material.SetFloat("_Rim", 1.0f);
-   }
-   else {
-        material.SetFloat("_Rim", 0.0f);
-   }
-
-   material.SetColor("_RimColor", rimColor);
-   material.SetFloat("_RimPower", rimPower);
-   material.SetFloat("_RimMinPower", rimMinPower);
-   material.SetFloat("_RimFrequency", rimFrequency);
-   material.SetFloat("_RimPerPositionFrequency", rimPerPositionFrequency); 
-}
-CoreUtils.SetKeyword(material, "_RIMLIGHTING", b_enableRim);
-
-
+               material.SetColor("_RimColor", rimColor);
+               material.SetFloat("_RimPower", rimPower);
+               material.SetFloat("_RimMinPower", rimMinPower);
+               material.SetFloat("_RimFrequency", rimFrequency);
+               material.SetFloat("_RimPerPositionFrequency", rimPerPositionFrequency); 
+            }
+            CoreUtils.SetKeyword(material, "_RIMLIGHTING", b_enableRim);
         }
 
         // material main advanced options

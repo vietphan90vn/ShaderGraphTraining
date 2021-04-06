@@ -8,22 +8,24 @@ Shader "Lux URP/Projection/Decal Unlit"
         [Space(5)]
         [Toggle(ORTHO_SUPPORT)]
         _OrthoSpport                                    ("Enable Orthographic Support", Float) = 0
+        [Toggle(HQ_SAMPLING)]
+        _HQSampling                                     ("Enable HQ Sampling", Float) = 0
 
         [Header(Surface Inputs)]
         [Space(5)]
-        [HDR]_Color                                     ("Color", Color) = (1,1,1,1)
+        [HDR] _Color                                    ("Color", Color) = (1,1,1,1)
         [NoScaleOffset] _BaseMap                        ("Albedo (RGB) Alpha (A)", 2D) = "white" {}
 
         [Header(Distance Fading)]
         [Space(5)]
-        [LuxLWRPDistanceFadeDrawer]
+        [LuxURPDistanceFadeDrawer]
         _DistanceFade                                   ("Distance Fade Params", Vector) = (2500, 0.001, 0, 0)
 
         [Header(Stencil)]
         [Space(5)]
         [IntRange] _StencilRef                          ("Stencil Reference", Range (0, 255)) = 0
-        [IntRange] _ReadMask                            ("    Read Mask", Range (0, 255)) = 255
-        [IntRange] _WriteMask                           ("    Write Mask", Range (0, 255)) = 255
+        [IntRange] _ReadMask                            ("     Read Mask", Range (0, 255)) = 255
+        [IntRange] _WriteMask                           ("     Write Mask", Range (0, 255)) = 255
         [Enum(UnityEngine.Rendering.CompareFunction)]
         _StencilCompare                                 ("Stencil Comparison", Int) = 6
 
@@ -69,6 +71,7 @@ Shader "Lux URP/Projection/Decal Unlit"
             #pragma target 2.0
 
             #pragma shader_feature_local ORTHO_SUPPORT
+            #pragma shader_feature_local HQ_SAMPLING
 
             #pragma shader_feature_local _APPLYFOG
 
@@ -104,6 +107,7 @@ Shader "Lux URP/Projection/Decal Unlit"
             #endif
             float4 _CameraDepthTexture_TexelSize;
             //TEXTURE2D(_BaseMap); SAMPLER(sampler_BaseMap);
+             float4 _BaseMap_TexelSize;
 
             struct VertexInput
             {
@@ -114,7 +118,7 @@ Shader "Lux URP/Projection/Decal Unlit"
 
             struct VertexOutput
             {
-                float4 positionCS : POSITION;
+                float4 positionCS : SV_POSITION;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
                 UNITY_VERTEX_OUTPUT_STEREO
 
@@ -166,6 +170,34 @@ Shader "Lux URP/Projection/Decal Unlit"
                 return output;
             }
 
+        //  HQ decal sampling from: http://www.humus.name/index.php?page=3D&ID=84
+        //  Decal MipmapLevel to avoid the 2x2 pixels artefacts on the edges where the decal is projected to.
+            float2 ComputeDecalDDX(VertexOutput input, float2 uv, float2 decalUV) {
+                float2 ScreenDeltaX = float2(1, 0);
+                float depth0 = LOAD_TEXTURE2D_X(_CameraDepthTexture, _CameraDepthTexture_TexelSize.zw * uv - ScreenDeltaX).x;
+                depth0 = LinearEyeDepth(depth0, _ZBufferParams);
+                float depth1 = LOAD_TEXTURE2D_X(_CameraDepthTexture, _CameraDepthTexture_TexelSize.zw * uv + ScreenDeltaX).x;
+                depth1 = LinearEyeDepth(depth1, _ZBufferParams);
+
+                float2 UvDiffX0 = decalUV - ((input.camPosOS + input.viewRayOS.xyz * depth0).xz + float2(0.5, 0.5));
+                float2 UvDiffX1 = ((input.camPosOS + input.viewRayOS.xyz * depth1).xz + float2(0.5, 0.5)) - decalUV;
+                
+                return dot(UvDiffX0, UvDiffX0) < dot(UvDiffX1, UvDiffX1) ? UvDiffX0 : UvDiffX1;
+            }
+            float2 ComputeDecalDDY(VertexOutput input, float2 uv, float2 decalUV) {
+                float2 ScreenDeltaY = float2(0, 1);
+                float depth0 = LOAD_TEXTURE2D_X(_CameraDepthTexture, _CameraDepthTexture_TexelSize.zw * uv - ScreenDeltaY).x;
+                depth0 = LinearEyeDepth(depth0, _ZBufferParams);
+                float depth1 = LOAD_TEXTURE2D_X(_CameraDepthTexture, _CameraDepthTexture_TexelSize.zw * uv + ScreenDeltaY).x;
+                depth1 = LinearEyeDepth(depth1, _ZBufferParams);
+
+                float2 UvDiffY0 = decalUV - ((input.camPosOS + input.viewRayOS.xyz * depth0).xz + float2(0.5, 0.5));
+                float2 UvDiffY1 = ((input.camPosOS + input.viewRayOS.xyz * depth1).xz + float2(0.5, 0.5)) - decalUV;
+                
+                return dot(UvDiffY0, UvDiffY0) < dot(UvDiffY1, UvDiffY1) ? UvDiffY0 : UvDiffY1;
+            }
+        //  HQ decal sampling END
+
             half4 frag (VertexOutput input ) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(input);
@@ -200,13 +232,20 @@ Shader "Lux URP/Projection/Decal Unlit"
                         #endif
                         
                     //  Get ortho Depth
+                    //  Old code, no idea why this ever worked...
+                        // depthOrtho = lerp(_ProjectionParams.y, _ProjectionParams.z, depthOrtho);
+                        // float2 rayOrtho = -float2( unity_OrthoParams.xy * ( input.screenUV.xy - 0.5) * 2 /* to clip space */);
+                        // float4 vposOrtho = float4(rayOrtho, -depthOrtho, 1);
+                        // float3 wposOrtho = mul(unity_CameraToWorld, vposOrtho).xyz;
+                        // wposOrtho -= _WorldSpaceCameraPos * 2; // TODO: Why * 2 ????
+                        // wposOrtho *= -1;
+                        // float3 positionOrthoOS = mul( GetWorldToObjectMatrix(), float4(wposOrtho, 1)).xyz;
+                        
                         depthOrtho = lerp(_ProjectionParams.y, _ProjectionParams.z, depthOrtho);
-                        float2 rayOrtho = -float2( unity_OrthoParams.xy * ( input.screenUV.xy - 0.5) * 2 /* to clip space */);
+                        float2 rayOrtho = float2( unity_OrthoParams.xy * ( input.screenUV.xy - 0.5) * 2 /* to clip space */);
                         float4 vposOrtho = float4(rayOrtho, -depthOrtho, 1);
-
                         float3 wposOrtho = mul(unity_CameraToWorld, vposOrtho).xyz;
-                        wposOrtho -= _WorldSpaceCameraPos * 2; // TODO: Why * 2 ????
-                        wposOrtho *= -1;
+
                         float3 positionOrthoOS = mul( GetWorldToObjectMatrix(), float4(wposOrtho, 1)).xyz;
                         positionOS = positionOrthoOS;
                     }
@@ -227,7 +266,17 @@ Shader "Lux URP/Projection/Decal Unlit"
                 clip(float3(0.5, 0.5, 0.5) - abs(positionOS.xyz));
 
                 float2 texUV = positionOS.xz + float2(0.5, 0.5);
-                half4 col = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, texUV) * _Color;
+            
+            //  HQ Decal Sampling
+                #if defined(HQ_SAMPLING) && !defined(ORTHO_SUPPORT)
+                    float2 UvPixelDiffX = ComputeDecalDDX(input, uv, texUV) * _BaseMap_TexelSize.zw;
+                    float2 UvPixelDiffY = ComputeDecalDDY(input, uv, texUV) * _BaseMap_TexelSize.zw;
+                    float MaxDiff = max(dot(UvPixelDiffX, UvPixelDiffX), dot(UvPixelDiffY, UvPixelDiffY));
+                    float Mip = 0.5 * log2(MaxDiff);
+                    half4 col = SAMPLE_TEXTURE2D_LOD(_BaseMap, sampler_BaseMap, texUV, Mip) * _Color;
+                #else
+                    half4 col = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, texUV) * _Color;
+                #endif
             
             //  Distance Fade
                 #if defined(ORTHO_SUPPORT)

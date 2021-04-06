@@ -49,7 +49,7 @@ Material:
     - _SpotFade: 1
     - _StencilCompare: 6
     - _StencilRef: 0
-    - _ZTest: 4
+    - _ZTest: 8
     - _far: 0.5
     - _near: 0
     m_Colors:

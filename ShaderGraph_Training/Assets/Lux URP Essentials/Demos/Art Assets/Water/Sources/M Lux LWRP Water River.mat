@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M Lux LWRP Water River
   m_Shader: {fileID: 4800000, guid: e202ee41c4a1646b89485f5daa21b886, type: 3}
-  m_ShaderKeywords: _FOAM _REFRACTION
+  m_ShaderKeywords: ORTHO_SUPPORT _FOAM _REFRACTION
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -55,7 +55,7 @@ Material:
     - _GlossyReflection: 1
     - _GlossyReflections: 1
     - _Help: 1
-    - _OrthoSpport: 0
+    - _OrthoSpport: 1
     - _ReceiveShadows: 1
     - _ReflectionBumpScale: 0.3
     - _Refraction: 0.3

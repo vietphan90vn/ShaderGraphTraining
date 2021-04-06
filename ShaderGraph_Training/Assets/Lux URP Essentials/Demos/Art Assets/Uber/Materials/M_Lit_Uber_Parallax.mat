@@ -66,7 +66,7 @@ Material:
     - _CameraFadingEnabled: 0
     - _CameraShadowFadeDist: 1
     - _Cull: 2
-    - _Cutoff: 0.073
+    - _Cutoff: 0.105
     - _DstBlend: 0
     - _Dummy: 0
     - _Emission: 0
@@ -90,10 +90,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HorizonOcclusion: 0.647
+    - _HorizonOcclusion: 0.604
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.06
+    - _Parallax: 0.05
     - _QueueOffset: 0
     - _ReadMask: 255
     - _ReceiveShadows: 1

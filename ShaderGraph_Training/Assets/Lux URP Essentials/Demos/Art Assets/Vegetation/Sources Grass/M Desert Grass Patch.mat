@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M Desert Grass Patch
   m_Shader: {fileID: 4800000, guid: 661dd8296a83b46c7973a6d226d36c62, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _SPECULARHIGHLIGHTS_OFF _SPECULAR_SETUP
+  m_ShaderKeywords: _ALPHATEST_ON _RECEIVE_SHADOWS_OFF _SPECULARHIGHLIGHTS_OFF _SPECULAR_SETUP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
@@ -72,6 +72,7 @@ Material:
     - _Cutoff: 0.2
     - _DrawDistSqr: 900
     - _DstBlend: 0
+    - _EnableNormal: 0
     - _EnvironmentReflections: 1
     - _FadeRange: 0.002
     - _GlossMapScale: 0
@@ -81,7 +82,7 @@ Material:
     - _Occlusion: 0.7
     - _OcclusionStrength: 1
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
+    - _ReceiveShadows: 0
     - _Shadows: 0
     - _Smoothness: 0.2
     - _SmoothnessTextureChannel: 0
@@ -99,3 +100,4 @@ Material:
     - _GlossyEnvironmentColorMultiplier: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
     - _WindMultiplier: {r: 0.4, g: 2, b: 0.25, a: 1}
+  m_BuildTextureStacks: []

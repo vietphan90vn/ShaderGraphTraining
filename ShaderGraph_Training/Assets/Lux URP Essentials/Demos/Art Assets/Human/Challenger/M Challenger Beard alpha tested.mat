@@ -88,7 +88,7 @@ Material:
     - _Cull: 0
     - _Culling: 0
     - _Curvature: 0.5
-    - _Cutoff: 0.139
+    - _Cutoff: 0.65
     - _DstBlend: 0
     - _EnableDistanceFade: 0
     - _EnableMaskMap: 0
@@ -111,6 +111,7 @@ Material:
     - _SecondaryLobe: 1
     - _SecondarySpecularExponent: 0.5
     - _SecondarySpecularShift: 0.184
+    - _ShadowCull: 0
     - _ShadowStrength: 1
     - _Shadows: 0
     - _Smoothness: 1

@@ -123,12 +123,12 @@ half4 LuxURPSimpleFuzzFragmentPBR(InputData inputData, half3 albedo, half metall
         half3 transLightDir = mainLight.direction + inputData.normalWS * translucency.w;
         half transDot = dot( transLightDir, -inputData.viewDirectionWS );
         transDot = exp2(saturate(transDot) * transPower - transPower);
-        color += brdfData.diffuse * transDot * (1.0 - NdotL) * mainLight.color * lerp(1.0h, mainLight.shadowAttenuation, translucency.z) * translucency.x * 4;
+        color += brdfData.diffuse * transDot * (1.0h - NdotL) * mainLight.color * lerp(1.0h, mainLight.shadowAttenuation, translucency.z) * translucency.x * 4;
     #endif
 
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i)
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i)
         {
             Light light = GetAdditionalLight(i, inputData.positionWS);
             NdotL = saturate(dot(inputData.normalWS, light.direction ));
@@ -143,7 +143,7 @@ half4 LuxURPSimpleFuzzFragmentPBR(InputData inputData, half3 albedo, half metall
             transLightDir = light.direction + inputData.normalWS * translucency.w;
             transDot = dot( transLightDir, -inputData.viewDirectionWS );
             transDot = exp2(saturate(transDot) * transPower - transPower);
-            color += brdfData.diffuse * transDot * (1.0 - NdotL) * light.color * lerp(1.0h, light.shadowAttenuation, translucency.z) * light.distanceAttenuation  * translucency.x * 4;
+            color += brdfData.diffuse * transDot * (1.0h - NdotL) * light.color * lerp(1.0h, light.shadowAttenuation, translucency.z) * light.distanceAttenuation  * translucency.x * 4;
         #endif
         }
     #endif

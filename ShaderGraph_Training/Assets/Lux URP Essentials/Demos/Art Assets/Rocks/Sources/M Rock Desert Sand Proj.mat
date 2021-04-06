@@ -75,21 +75,21 @@ Material:
     - _EnableFuzzyLighting: 0
     - _EnvironmentReflections: 1
     - _FuzzAmbient: 1
-    - _FuzzBias: 0.5
-    - _FuzzPower: 5.67
-    - _FuzzStrength: 3.56
-    - _FuzzWrap: 0.519
+    - _FuzzBias: 0
+    - _FuzzPower: 4
+    - _FuzzStrength: 1
+    - _FuzzWrap: 0.5
     - _GlossMapScale: 1
     - _GlossMapScaleDyn: 1
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightBlendSharpness: 0.628
+    - _HeightBlendSharpness: 1
     - _LowerNormalInfluence: 0
-    - _LowerNormalMinStrength: 0.54
+    - _LowerNormalMinStrength: 0
     - _MaskFromNormal: 0
     - _Metallic: 0
-    - _NormalFactor: 0.93
-    - _NormalLimit: 0.56
+    - _NormalFactor: 1.05
+    - _NormalLimit: 0.396
     - _Occlusion: 1
     - _OcclusionStrength: 1
     - _QueueOffset: 0

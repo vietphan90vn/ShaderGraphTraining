@@ -47,9 +47,9 @@ Material:
     - _EnableBaseMap: 0
     - _EnvironmentReflections: 1
     - _Help: 0
-    - _NormalShift: 0.83
-    - _NormalThreshold: 0.414
-    - _NormalWidth: 2.5
+    - _NormalShift: 0.75
+    - _NormalThreshold: 0.4
+    - _NormalWidth: 1.5
     - _Offset: 0
     - _QueueOffset: 0
     - _ReadMask: 255

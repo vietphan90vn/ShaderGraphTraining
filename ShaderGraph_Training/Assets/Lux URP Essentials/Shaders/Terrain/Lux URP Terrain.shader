@@ -22,6 +22,7 @@
         _EnableProcedural                       ("Enable Procedural Texturing", Float) = 0.0
         _ProceduralBlend                        ("     Blend", Range(0.0, 1.0)) = 0.6
         _ProceduralScale                        ("     Scale", Range(0.5, 1.5)) = 1
+        _ProceduralTiling                       ("     Size in World Space", Float) = 5
 
         // Layer count is passed down to guide height-blend enable/disable, due
         // to the fact that heigh-based blend will be broken with multipass.

@@ -18,7 +18,7 @@ inline half3 LightingTreeBark (Light light, half3 albedo, half3 specular, half g
     return c;
 }
 
-half4 LuxLWRPTreeBarkFragment (InputData inputData, half3 albedo, half3 specular,
+half4 LuxURPTreeBarkFragment (InputData inputData, half3 albedo, half3 specular,
     half smoothness, half occlusion, half alpha, half squashAmount
 )
 {
@@ -29,8 +29,8 @@ half4 LuxLWRPTreeBarkFragment (InputData inputData, half3 albedo, half3 specular
     color += LightingTreeBark(mainLight, albedo, specular, smoothness, 1.0h, inputData.normalWS, inputData.viewDirectionWS);
 
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i)
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i)
         {
             Light light = GetAdditionalLight(i, inputData.positionWS);
             color += LightingTreeBark(light, albedo, specular, smoothness, squashAmount, inputData.normalWS, inputData.viewDirectionWS);
@@ -75,7 +75,7 @@ inline half3 LightingTreeLeaf(Light light, half3 albedo, half3 specular, half gl
 }
 
 
-half4 LuxLWRPTreeLeafFragmentPBR(InputData inputData, half3 albedo, half3 specular,
+half4 LuxURPTreeLeafFragmentPBR(InputData inputData, half3 albedo, half3 specular,
     half smoothness, half occlusion, half alpha, half2 translucency, half3 translucencyColor, half squashAmount, half shadowStrength
 )
 {
@@ -88,8 +88,8 @@ half4 LuxLWRPTreeLeafFragmentPBR(InputData inputData, half3 albedo, half3 specul
     color += LightingTreeLeaf(mainLight, albedo, specular, smoothness, translucency, translucencyColor, 1, inputData.normalWS, inputData.viewDirectionWS);
 
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i)
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i)
         {
             Light light = GetAdditionalLight(i, inputData.positionWS);
             color += LightingTreeLeaf(light, albedo, specular, smoothness, translucency, translucencyColor, squashAmount, inputData.normalWS, inputData.viewDirectionWS);

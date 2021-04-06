@@ -55,7 +55,7 @@ Material:
     - _ShadowShiftThreshold: 0.05
     - _ShadowShiftView: 0.1
     - _Shadows: 0
-    - _Shift: 0.0133
+    - _Shift: 0.02
     - _Smoothness: 0.5
     - _SpecularHighlights: 1
     - _ZWrite: 1

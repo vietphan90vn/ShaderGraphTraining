@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Uber_Dither
   m_Shader: {fileID: 4800000, guid: fc65687ee1044b44a8ad796f88d69a92, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON _ENABLE_AO_FROM_GI _FADING_ON _FADING_SHADOWS_ON
-    _NORMALMAP _SAMPLENORMAL
+  m_ShaderKeywords: _ALPHATEST_ON _ENABLE_AO_FROM_GI _ENABLE_GEOMETRIC_SPECULAR_AA
+    _FADING_ON _FADING_SHADOWS_ON _NORMALMAP _PARALLAX _SAMPLENORMAL
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -38,7 +38,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 4118766b0b33d294397cddcdf04aff8d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -75,7 +75,7 @@ Material:
     - _EnableMetalSpec: 0
     - _EnableNormal: 1
     - _EnableOcclusion: 0
-    - _EnableParallax: 0
+    - _EnableParallax: 1
     - _EnableParallaxShadows: 0
     - _EnvironmentReflections: 1
     - _FoldAdvanced: 0
@@ -86,7 +86,7 @@ Material:
     - _FoldSurfaceOptions: 1
     - _GItoAO: 5
     - _GItoAOBias: 0.2
-    - _GeometricSpecularAA: 0
+    - _GeometricSpecularAA: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -102,8 +102,8 @@ Material:
     - _RimMinPower: 1
     - _RimPerPositionFrequency: 1
     - _RimPower: 2
-    - _SAAThreshold: 0.2
-    - _ScreenSpaceVariance: 0.1
+    - _SAAThreshold: 0.66
+    - _ScreenSpaceVariance: 0.085
     - _Smoothness: 0.8
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

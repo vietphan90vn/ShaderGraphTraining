@@ -44,6 +44,9 @@ CBUFFER_START(UnityPerMaterial)
     float _CameraFadeDist;
     float _CameraShadowFadeDist;
 
+//  Needed by URP 7.5.2 and above
+    float _Surface;
+
 CBUFFER_END
 
 TEXTURE2D(_OcclusionMap);       SAMPLER(sampler_OcclusionMap);
@@ -80,15 +83,13 @@ TEXTURE2D(_BentNormalMap);      SAMPLER(sampler_BentNormalMap);
         float2 uv                           : TEXCOORD0;
 
         #if defined(_ALPHATEST_ON)
-            //half3 viewDirTS               : TEXCOORD1;
         //  We have to use the same inputs...
-            float4 normalWS                 : TEXCOORD1;
+            float3 normalWS                 : TEXCOORD1;
             float4 tangentWS                : TEXCOORD2;
-            float4 bitangentWS              : TEXCOORD3;
-
-            float screenPos                 : TEXCOORD4; // was float4
+            float screenPos                 : TEXCOORD3; // was float4
 
         #endif
+        float3 viewDirWS                    : TEXCOORD5;
 
         UNITY_VERTEX_INPUT_INSTANCE_ID
         UNITY_VERTEX_OUTPUT_STEREO
@@ -199,6 +200,8 @@ inline void InitializeStandardLitSurfaceData(float2 uv, out SurfaceData outSurfa
     outSurfaceData.normalTS = SampleNormal(uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
     outSurfaceData.occlusion = SampleOcclusion(uv);
     outSurfaceData.emission = SampleEmission(uv, _EmissionColor.rgb, TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
+    outSurfaceData.clearCoatMask = 0;
+    outSurfaceData.clearCoatSmoothness = 1;
 }
 
 #if defined(_UBER)
@@ -247,6 +250,9 @@ inline void InitializeStandardLitSurfaceData(float2 uv, out SurfaceData outSurfa
         #else
             outSurfaceData.emission = 0;
         #endif
+
+        outSurfaceData.clearCoatMask = 0;
+        outSurfaceData.clearCoatSmoothness = 1;
     }
 #endif
 

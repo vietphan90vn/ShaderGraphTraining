@@ -13,7 +13,7 @@ Shader "Lux URP/Transmission"
         _Cull                       ("Culling", Float) = 2
         [Toggle(_ALPHATEST_ON)]
         _AlphaClip                  ("Alpha Clipping", Float) = 0.0
-        _Cutoff                     ("    Threshold", Range(0.0, 1.0)) = 0.5
+        _Cutoff                     ("     Threshold", Range(0.0, 1.0)) = 0.5
         [ToggleOff(_RECEIVE_SHADOWS_OFF)]
         _ReceiveShadows             ("Receive Shadows", Float) = 1.0
         _ShadowOffset               ("Shadow Offset", Float) = 1.0
@@ -33,15 +33,15 @@ Shader "Lux URP/Transmission"
         [Space(5)]
         [Toggle(_NORMALMAP)]
         _ApplyNormal                ("Enable Normal Map", Float) = 0.0
-        [NoScaleOffset] _BumpMap    ("    Normal Map", 2D) = "bump" {}
-        _BumpScale                  ("    Normal Scale", Float) = 1.0
+        [NoScaleOffset] _BumpMap    ("     Normal Map", 2D) = "bump" {}
+        _BumpScale                  ("     Normal Scale", Float) = 1.0
 
 
         [Space(5)]
         [Toggle(_MASKMAP)]
         _EnableMaskMap              ("Enable Mask Map", Float) = 0.0
-        _MaskMap                    ("    Mask (R) Thickness (G) Occlusion (B) Smoothness (A)", 2D) = "white" {}
-        _Occlusion                  ("    Occlusion", Range(0.0, 1.0)) = 1
+        _MaskMap                    ("     Mask (R) Thickness (G) Occlusion (B) Smoothness (A)", 2D) = "white" {}
+        _Occlusion                  ("     Occlusion", Range(0.0, 1.0)) = 1
 
 
 
@@ -50,6 +50,7 @@ Shader "Lux URP/Transmission"
         _TranslucencyPower          ("Power", Range(0.0, 32.0)) = 7.0
         _TranslucencyStrength       ("Strength", Range(0.0, 1.0)) = 1.0
         _ShadowStrength             ("Shadow Strength", Range(0.0, 1.0)) = 0.7
+        _MaskByShadowStrength       ("Mask by incoming Shadow Strength", Range(0.0, 1.0)) = 0.0
         _Distortion                 ("Distortion", Range(0.0, 0.1)) = 0.01
 
         [Space(5)]
@@ -60,18 +61,18 @@ Shader "Lux URP/Transmission"
         [Space(5)]
         [Toggle(_RIMLIGHTING)]
         _Rim                        ("Enable Rim Lighting", Float) = 0
-        [HDR] _RimColor                   ("Rim Color", Color) = (0.5,0.5,0.5,1)
+        [HDR] _RimColor             ("Rim Color", Color) = (0.5,0.5,0.5,1)
         _RimPower                   ("Rim Power", Float) = 2
         _RimFrequency               ("Rim Frequency", Float) = 0
-        _RimMinPower                ("    Rim Min Power", Float) = 1
-        _RimPerPositionFrequency    ("    Rim Per Position Frequency", Range(0.0, 1.0)) = 1
+        _RimMinPower                ("     Rim Min Power", Float) = 1
+        _RimPerPositionFrequency    ("     Rim Per Position Frequency", Range(0.0, 1.0)) = 1
 
 
         [Header(Stencil)]
         [Space(5)]
         [IntRange] _Stencil         ("Stencil Reference", Range (0, 255)) = 0
-        [IntRange] _ReadMask        ("    Read Mask", Range (0, 255)) = 255
-        [IntRange] _WriteMask       ("    Write Mask", Range (0, 255)) = 255
+        [IntRange] _ReadMask        ("     Read Mask", Range (0, 255)) = 255
+        [IntRange] _WriteMask       ("     Write Mask", Range (0, 255)) = 255
         [Enum(UnityEngine.Rendering.CompareFunction)]
         _StencilComp                ("Stencil Comparison", Int) = 8     // always
         [Enum(UnityEngine.Rendering.StencilOp)]
@@ -194,7 +195,7 @@ Shader "Lux URP/Transmission"
                 vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
                 VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS, input.tangentOS);
 
-                half3 viewDirWS = GetCameraPositionWS() - vertexInput.positionWS;
+                float3 viewDirWS = GetCameraPositionWS() - vertexInput.positionWS;
                 half3 vertexLight = VertexLighting(vertexInput.positionWS, normalInput.normalWS);
                 half fogFactor = ComputeFogFactor(vertexInput.positionCS.z);
 
@@ -202,15 +203,14 @@ Shader "Lux URP/Transmission"
                 
                 #if defined(_MASKMAP)
                     output.uv.zw = TRANSFORM_TEX(input.texcoord, _MaskMap);
-                #endif  
+                #endif
 
-                #if defined(_NORMALMAP)
-                    output.normalWS = half4(normalInput.normalWS, viewDirWS.x);
-                    output.tangentWS = half4(normalInput.tangentWS, viewDirWS.y);
-                    output.bitangentWS = half4(normalInput.bitangentWS, viewDirWS.z);
-                #else
-                    output.normalWS = NormalizeNormalPerVertex(normalInput.normalWS);
-                    output.viewDirWS = viewDirWS;
+                output.normalWS = normalInput.normalWS;
+                output.viewDirWS = viewDirWS;
+
+                #ifdef _NORMALMAP
+                    float sign = input.tangentOS.w * GetOddNegativeScale();
+                    output.tangentWS = float4(normalInput.tangentWS.xyz, sign);
                 #endif
 
                 OUTPUT_LIGHTMAP_UV(input.lightmapUV, unity_LightmapST, output.lightmapUV);
@@ -275,16 +275,17 @@ Shader "Lux URP/Transmission"
             void InitializeInputData(VertexOutput input, half3 normalTS, half facing, out InputData inputData)
             {
                 inputData = (InputData)0;
-                #ifdef _ADDITIONAL_LIGHTS
+                #if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
                     inputData.positionWS = input.positionWS;
                 #endif
-                
+
+                half3 viewDirWS = SafeNormalize(input.viewDirWS);
                 #if defined(_NORMALMAP)
-                    half3 viewDirWS = half3(input.normalWS.w, input.tangentWS.w, input.bitangentWS.w);
                     normalTS.z *= facing;
-                    inputData.normalWS = TransformTangentToWorld(normalTS, half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
+                    float sgn = input.tangentWS.w;      // should be either +1 or -1
+                    float3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
+                    inputData.normalWS = TransformTangentToWorld(normalTS, half3x3(input.tangentWS.xyz, bitangent.xyz, input.normalWS.xyz));
                 #else
-                    half3 viewDirWS = input.viewDirWS;
                     inputData.normalWS = input.normalWS * facing;
                 #endif
 
@@ -329,7 +330,7 @@ Shader "Lux URP/Transmission"
                 #endif
 
             //  Apply lighting
-                half4 color = LuxLWRPTranslucentFragmentPBR (
+                half4 color = LuxURPTranslucentFragmentPBR (
                         inputData, 
                         
                         surfaceData.albedo,
@@ -348,6 +349,7 @@ Shader "Lux URP/Transmission"
                         #if defined(_STANDARDLIGHTING)
                             , surfaceData.mask
                         #endif
+                        , _MaskByShadowStrength
                 );    
             //  Add fog
                 color.rgb = MixFog(color.rgb, inputData.fogCoord);
@@ -525,6 +527,8 @@ Shader "Lux URP/Transmission"
                 outSurfaceData.normalTS = half3(0,0,1);
                 outSurfaceData.occlusion = 1;
                 outSurfaceData.emission = 0;
+                outSurfaceData.clearCoatMask = 0;
+                outSurfaceData.clearCoatSmoothness = 1;
             }
 
         //  Finally include the meta pass related stuff  

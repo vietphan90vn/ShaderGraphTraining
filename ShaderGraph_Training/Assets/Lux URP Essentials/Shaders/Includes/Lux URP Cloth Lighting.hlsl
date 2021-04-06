@@ -135,14 +135,13 @@ half3 LightingPhysicallyBased_LuxCloth(BRDFData brdfData, AdditionalData addData
 
 
 
-half4 LuxLWRPClothFragmentPBR(InputData inputData, half3 albedo, half metallic, half3 specular,
-    half smoothness, half occlusion, half3 emission, half alpha, half3 tangentWS, half3 bitangentWS, half anisotropy, half3 sheenColor, half4 translucency)
+half4 LuxURPClothFragmentPBR(InputData inputData, half3 albedo, half metallic, half3 specular,
+    half smoothness, half occlusion, half3 emission, half alpha, half3 tangentWS, half anisotropy, half3 sheenColor, half4 translucency)
 {
     
     #if defined(_COTTONWOOL)
         smoothness = lerp(0.0h, 0.6h, smoothness);
     #endif
-
 
     BRDFData brdfData;
     InitializeBRDFData(albedo, metallic, specular, smoothness, alpha, brdfData);
@@ -152,10 +151,12 @@ half4 LuxLWRPClothFragmentPBR(InputData inputData, half3 albedo, half metallic, 
     brdfData.specular = specular;
 
     AdditionalData addData;
-//  The missing bits - checked with per vertex bitangent and tangent    
-    addData.bitangentWS = normalize( -cross(inputData.normalWS, tangentWS) ); //bitangentWS;
-//  We can get away with a single normalize here
-    addData.tangentWS = cross(inputData.normalWS, addData.bitangentWS); // tangentWS;
+//  Adjust tangentWS in case normal mapping is active
+    #if defined(_NORMALMAP)   
+        tangentWS = Orthonormalize(tangentWS, inputData.normalWS);
+    #endif            
+    addData.tangentWS = tangentWS;
+    addData.bitangentWS = cross(inputData.normalWS, tangentWS);
 
 //  We do not apply ClampRoughnessForAnalyticalLights here
     addData.roughnessT = brdfData.roughness * (1 + anisotropy);
@@ -168,7 +169,7 @@ half4 LuxLWRPClothFragmentPBR(InputData inputData, half3 albedo, half metallic, 
         addData.partLambdaV = GetSmithJointGGXAnisoPartLambdaV(TdotV, BdotV, NdotV, addData.roughnessT, addData.roughnessB);
 
     //  Set reflection normal and roughness – derived from GetGGXAnisotropicModifiedNormalAndRoughness
-        half3 grainDirWS = (anisotropy >= 0.0) ? bitangentWS : tangentWS;
+        half3 grainDirWS = (anisotropy >= 0.0) ? addData.bitangentWS : addData.tangentWS;
         half stretch = abs(anisotropy) * saturate(1.5h * sqrt(brdfData.perceptualRoughness));
         addData.anisoReflectionNormal = GetAnisotropicModifiedNormal(grainDirWS, inputData.normalWS, inputData.viewDirectionWS, stretch);
         half iblPerceptualRoughness = brdfData.perceptualRoughness * saturate(1.2 - abs(anisotropy));
@@ -208,10 +209,9 @@ half4 LuxLWRPClothFragmentPBR(InputData inputData, half3 albedo, half metallic, 
         color += brdfData.diffuse * transDot * (1.0 - NdotL) * mainLight.color * lerp(1.0h, mainLight.shadowAttenuation, translucency.z) * translucency.x * 4;
     #endif
 
-
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i)
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i)
         {
             Light light = GetAdditionalLight(i, inputData.positionWS);
             NdotL = saturate(dot(inputData.normalWS, light.direction ));
@@ -224,9 +224,6 @@ half4 LuxLWRPClothFragmentPBR(InputData inputData, half3 albedo, half metallic, 
             transDot = exp2(saturate(transDot) * transPower - transPower);
             color += brdfData.diffuse * transDot * (1.0 - NdotL) * light.color * lerp(1.0h, light.shadowAttenuation, translucency.z) * light.distanceAttenuation  * translucency.x * 4;
         #endif
-
-
-
         }
     #endif
 

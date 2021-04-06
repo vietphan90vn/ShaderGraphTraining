@@ -17,28 +17,28 @@ Shader "Lux URP/Projection/Top Down"
         _BaseMap                        ("Albedo (RGB) Smoothness (A)", 2D) = "white" {}
         [Toggle(_DYNSCALE)]
         _ApplyDynScale                  ("Enable dynamic tiling", Float) = 0.0
-
+        
         [Space(5)]
         _GlossMapScale                  ("Smoothness Scale", Range(0.0, 1.0)) = 1.0
         _SpecColor                      ("Specular", Color) = (0.2, 0.2, 0.2)
-
+        
         [Space(5)]
         [Toggle(_NORMALMAP)]
         _ApplyNormal                    ("Enable Normal Map", Float) = 1.0
         [NoScaleOffset] _BumpMap        ("     Normal Map", 2D) = "bump" {}
         _BumpScale                      ("     Normal Scale", Float) = 1.0
-
+        
         [Header(Mask Map)]
         [Space(5)]
         [Toggle(_COMBINEDTEXTURE)]
         _CombinedTexture                ("Enable Mask Map", Float) = 0.0
         [NoScaleOffset] _MaskMap        ("     Metallness (R) Occlusion (G) Height (B) Emission (A) ", 2D) = "bump" {}
-
+    
         [HDR] _EmissionColor            ("     Emission Color", Color) = (0,0,0)
         [Toggle(_EMISSION)]
         _Emission                       ("     Bake Emission", Float) = 0.0
         _Occlusion                      ("     Occlusion", Range(0.0, 1.0)) = 1.0
-
+        
         [Header(Top Down Projection)]
         [Space(5)]
         [Toggle(_TOPDOWNPROJECTION)]
@@ -69,11 +69,11 @@ Shader "Lux URP/Projection/Top Down"
         [Space(5)]
         [Toggle(_SIMPLEFUZZ)]
         _EnableFuzzyLighting            ("Enable Fuzzy Lighting", Float) = 0
-        _FuzzWrap                       ("     Diffuse Wrap", Range(0, 1)) = 0.5
-        _FuzzStrength                   ("     Fuzz Strength", Range(0, 8)) = 1
-        _FuzzPower                      ("     Fuzz Power", Range(1, 16)) = 4
+        _FuzzWrap                       ("     Diffuse Wrap", Range(0, 1)) = 0.5 
+        _FuzzStrength                   ("     Fuzz Strength", Range(0, 8)) = 1 
+        _FuzzPower                      ("     Fuzz Power", Range(1, 16)) = 4        
         _FuzzBias                       ("     Fuzz Bias", Range(0, 1)) = 0
-        _FuzzAmbient                    ("     Ambient Strength", Range(0, 1)) = 1
+        _FuzzAmbient                    ("     Ambient Strength", Range(0, 1)) = 1 
 
         [Header(Advanced)]
         [Space(5)]
@@ -176,20 +176,19 @@ Shader "Lux URP/Projection/Top Down"
             {
                 inputData = (InputData)0;
                 inputData.positionWS = input.positionWS;
+
+                half3 viewDirWS = SafeNormalize(input.viewDirWS);
                 #ifdef _NORMALMAP
-                    half3 viewDirWS = half3(input.normalWS.w, input.tangentWS.w, input.bitangentWS.w);
                 //  Here normalTS is already normalWS
                 //  inputData.normalWS = TransformTangentToWorld(normalTS, half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
                     inputData.normalWS = normalTS;
                 #else
-                    half3 viewDirWS = input.viewDirWS;
                     inputData.normalWS = input.normalWS;
                 #endif
 
                 inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
-                viewDirWS = SafeNormalize(viewDirWS);
-
                 inputData.viewDirectionWS = viewDirWS;
+
                 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
                     inputData.shadowCoord = input.shadowCoord;
                 #elif defined(MAIN_LIGHT_CALCULATE_SHADOWS)
@@ -211,7 +210,8 @@ Shader "Lux URP/Projection/Top Down"
 
                 VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
                 VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS, input.tangentOS);
-                half3 viewDirWS = GetCameraPositionWS() - vertexInput.positionWS;
+                
+                float3 viewDirWS = GetCameraPositionWS() - vertexInput.positionWS;
                 half3 vertexLight = VertexLighting(vertexInput.positionWS, normalInput.normalWS);
                 half fogFactor = ComputeFogFactor(vertexInput.positionCS.z);
 
@@ -223,14 +223,15 @@ Shader "Lux URP/Projection/Top Down"
                     output.uv.xy *= scale;
                 #endif
 
+                // already normalized from normal transform to WS.
+                output.normalWS = normalInput.normalWS;
+                //output.normalWS = NormalizeNormalPerVertex(normalInput.normalWS);
+                
                 #ifdef _NORMALMAP
-                    output.normalWS = half4(normalInput.normalWS, viewDirWS.x);
-                    output.tangentWS = half4(normalInput.tangentWS, viewDirWS.y);
-                    output.bitangentWS = half4(normalInput.bitangentWS, viewDirWS.z);
-                #else
-                    output.normalWS = NormalizeNormalPerVertex(normalInput.normalWS);
-                    output.viewDirWS = viewDirWS;
+                    float sign = input.tangentOS.w * GetOddNegativeScale();
+    				output.tangentWS = float4(normalInput.tangentWS.xyz, sign);
                 #endif
+                output.viewDirWS = viewDirWS;
 
                 OUTPUT_LIGHTMAP_UV(input.lightmapUV, unity_LightmapST, output.lightmapUV);
                 OUTPUT_SH(output.normalWS.xyz, output.vertexSH);
@@ -281,7 +282,7 @@ Shader "Lux URP/Projection/Top Down"
                     outSurfaceData.emission = _EmissionColor * combinedTextureSample.a;
                     outSurfaceData.occlusion = lerp(1.0h, combinedTextureSample.g, _Occlusion);
                 #endif
-
+                
                 outSurfaceData.smoothness = albedoAlpha.a * _GlossMapScale;
                 outSurfaceData.normalTS = SampleNormal(input.uv.xy, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
 
@@ -303,7 +304,9 @@ Shader "Lux URP/Projection/Top Down"
                     float blendFactor = 0;
                     #ifdef _NORMALMAP
                     //  Get per pixel worldspace normal (needed by blending)
-                        float3 normalWS = TransformTangentToWorld(outSurfaceData.normalTS, half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
+                    	float sgn = input.tangentWS.w;      // should be either +1 or -1
+    					float3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
+                        float3 normalWS = TransformTangentToWorld(outSurfaceData.normalTS, half3x3(input.tangentWS.xyz, bitangent, input.normalWS.xyz));
                         blendFactor = lerp(input.normalWS.y, normalWS.y, _LowerNormalInfluence);
                     #else
                         blendFactor = input.normalWS.y;
@@ -318,9 +321,9 @@ Shader "Lux URP/Projection/Top Down"
                             float mask = saturate(packedNormal.b * _HeightBlendSharpness);
                         #else
                         //  Mask is height and we want less on high levels. So it is some kind of inverted.
-                            float mask = saturate(combinedTextureSample.b * _HeightBlendSharpness);
+                            float mask = saturate(combinedTextureSample.b * _HeightBlendSharpness);   
                         #endif
-                        blendFactor = smoothstep(mask, 1, blendFactor);
+                        blendFactor = smoothstep(mask, 1, blendFactor); 
                     #else
                     //  Somehow compensate missing height sample, smoothstep is not compensated? Nope. Just saturate.
                         blendFactor = saturate(blendFactor); // * (1 + _HeightBlendSharpness));
@@ -340,7 +343,7 @@ Shader "Lux URP/Projection/Top Down"
                     outSurfaceData.occlusion = lerp(outSurfaceData.occlusion, 1, blendFactor);
 
                     #ifdef _NORMALMAP
-                    //  1. Normal is not sampled in tangent space
+                    //  1. Normal is not sampled in tangent space   
                         outSurfaceData.normalTS = normalWS;
                     //  2. So we use Reoriented Normal Mapping to bring the top down normal into world space
                     //  See e.g.: https://medium.com/@bgolus/normal-mapping-for-a-triplanar-shader-10bf39dca05a
@@ -352,12 +355,14 @@ Shader "Lux URP/Projection/Top Down"
                         topDownNormal = n1 * dot(n1, n2) / n1.z - n2;
                     //  Swizzle tangent space to world space
                         topDownNormal = topDownNormal.xzy;
-                    //  3. Finally we blend both normals in world space
+                    //  3. Finally we blend both normals in world space 
                         outSurfaceData.normalTS = lerp(outSurfaceData.normalTS, topDownNormal, saturate(normalBlendFactor.xxx - _LowerNormalMinStrength) );
                     #endif
                 #else
                     #ifdef _NORMALMAP
-                        outSurfaceData.normalTS = TransformTangentToWorld(outSurfaceData.normalTS, half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
+                    	float sgn = input.tangentWS.w;      // should be either +1 or -1
+    					float3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
+                        outSurfaceData.normalTS = TransformTangentToWorld(outSurfaceData.normalTS, half3x3(input.tangentWS.xyz, bitangent, input.normalWS.xyz));
                     #else
                         outSurfaceData.normalTS = input.normalWS.xyz;
                     #endif
@@ -382,22 +387,22 @@ Shader "Lux URP/Projection/Top Down"
                 InitializeStandardLitSurfaceData(input, surfaceData);
 
             //  Transfer all to world space
-            //  Please note: surfaceData.normalTS already contains the world space normal!
+            //  Please note: surfaceData.normalTS already contains the world space normal! 
                 InputData inputData;
                 InitializeInputData(input, surfaceData.normalTS, inputData);
 
             //  Apply lighting
                 //half4 color = LightweightFragmentPBR(inputData, surfaceData.albedo, surfaceData.metallic, surfaceData.specular, surfaceData.smoothness, surfaceData.occlusion, surfaceData.emission, surfaceData.alpha);
-
+            
             //  Apply lighting
                 half4 color = LuxURPSimpleFuzzFragmentPBR(
-                    inputData,
+                    inputData, 
                     surfaceData.albedo,
-                    surfaceData.metallic,
-                    surfaceData.specular,
-                    surfaceData.smoothness,
-                    surfaceData.occlusion,
-                    surfaceData.emission,
+                    surfaceData.metallic, 
+                    surfaceData.specular, 
+                    surfaceData.smoothness, 
+                    surfaceData.occlusion, 
+                    surfaceData.emission, 
                     surfaceData.alpha,
 
                     #if defined(_SCATTERING)
@@ -412,7 +417,7 @@ Shader "Lux URP/Projection/Top Down"
                     _FuzzWrap,
                     _FuzzStrength * PI,
                     _FuzzAmbient
-                );
+                ); 
 
             //  Add fog
                 color.rgb = MixFog(color.rgb, inputData.fogCoord);
@@ -476,7 +481,7 @@ Shader "Lux URP/Projection/Top Down"
                 VertexOutput output = (VertexOutput)0;
                 UNITY_SETUP_INSTANCE_ID(input);
                 UNITY_TRANSFER_INSTANCE_ID(input, output);
-
+                
                 float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
                 float3 normalWS = TransformObjectToWorldDir(input.normalOS);
                 output.positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, _LightDirection));
@@ -523,7 +528,7 @@ Shader "Lux URP/Projection/Top Down"
             //--------------------------------------
             // GPU Instancing
             #pragma multi_compile_instancing
-
+            
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             #define DEPTHONLYPASS
@@ -628,7 +633,7 @@ Shader "Lux URP/Projection/Top Down"
                     outSurfaceData.occlusion = lerp(1.0h, combinedTextureSample.g, _Occlusion);
                 #else
                     outSurfaceData.emission = 0;
-                    outSurfaceData.occlusion = 1;
+                    outSurfaceData.occlusion = 1; 
                 #endif
 
                 #ifdef _NORMALMAP
@@ -648,7 +653,7 @@ Shader "Lux URP/Projection/Top Down"
                     float blendFactor = normalWS.y;
                 //  Prevent projected texture from gettings stretched by masking out steep faces
                     //blendFactor = saturate( blendFactor - (1 - saturate ( (blendFactor - _NormalLimit) * 4 ) ) );
-                    blendFactor = lerp(-_NormalLimit, 1, saturate(blendFactor));
+                    blendFactor = lerp(-_NormalLimit, 1, saturate(blendFactor));             
                 //  Widen blendfactor
                     blendFactor = blendFactor * _NormalFactor;
                     #if defined(_COMBINEDTEXTURE) || defined (_NORMALMAP) && defined (_MASKFROMNORMAL)
@@ -656,9 +661,9 @@ Shader "Lux URP/Projection/Top Down"
                             float mask = saturate(packedNormal.b * _HeightBlendSharpness);
                         #else
                         //  Mask is height and we want less on high levels. So it is some kind of inverted.
-                            float mask = saturate(combinedTextureSample.b * _HeightBlendSharpness);
+                            float mask = saturate(combinedTextureSample.b * _HeightBlendSharpness);   
                         #endif
-                        blendFactor = smoothstep(mask, 1, blendFactor);
+                        blendFactor = smoothstep(mask, 1, blendFactor); 
                     #else
                     //  Somehow compensate missing height sample, smoothstep is not compensated
                         blendFactor = saturate(blendFactor); // * (1 + _HeightBlendSharpness));
@@ -676,6 +681,9 @@ Shader "Lux URP/Projection/Top Down"
                 outSurfaceData.smoothness = albedoAlpha.a;
 
                 outSurfaceData.normalTS = half3(0,0,1);
+
+                outSurfaceData.clearCoatMask = 0;
+                outSurfaceData.clearCoatSmoothness = 1;
             }
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/MetaInput.hlsl"
@@ -705,7 +713,7 @@ Shader "Lux URP/Projection/Top Down"
                 VertexOutputMeta output;
                 output.positionCS = MetaVertexPosition(input.positionOS, input.uv1, input.uv2,
                     unity_LightmapST, unity_DynamicLightmapST);
-
+                
                 output.uv.xy = TRANSFORM_TEX(input.uv0, _BaseMap);
 
                 #if defined (_DYNSCALE)
@@ -736,7 +744,7 @@ Shader "Lux URP/Projection/Top Down"
 
                 return MetaFragment(metaInput);
             }
-
+            
             ENDHLSL
         }
     }

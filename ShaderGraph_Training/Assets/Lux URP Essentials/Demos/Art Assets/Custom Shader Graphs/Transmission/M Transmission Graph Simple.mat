@@ -30,6 +30,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _CutOff: 1
+    - _MaskByShadowStrength: 0
     - _Occlusion: 1
     - _Smoothness: 0.647
     - _TransmissionDistortion: 0.01

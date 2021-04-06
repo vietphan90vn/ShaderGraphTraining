@@ -190,8 +190,7 @@
                 float4x4 ViewToObjectMatrix = mul(GetWorldToObjectMatrix(), UNITY_MATRIX_I_V);
                 o.viewRayOS.xyz = mul((float3x3)ViewToObjectMatrix, -viewRayVS).xyz;
                 //  positionVS.z here acts as view space to object space ratio (negative)
-                o.viewRayOS.w = positionVS.z; 
-
+                o.viewRayOS.w = positionVS.z;
                 return o;
             }
 
@@ -296,7 +295,7 @@
                 color.a = saturate(alpha);
 
                 #if defined(_ENABLEGRADIENT)
-                    color.rgb = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, float2(input.positionOS_scale.y, 0)).rgb;
+                    color.rgb = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, float2(exitOS.y + 0.5, 0)).rgb;
                 #endif
 
                 color *= _Color;

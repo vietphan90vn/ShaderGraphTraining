@@ -65,7 +65,7 @@ Material:
     - _Distortion: 0.01
     - _EnableAlphaTesting: 0
     - _EnableDistanceFade: 0
-    - _EnableMaskMap: 0
+    - _EnableMaskMap: 1
     - _EnvironmentReflections: 1
     - _Help: 0
     - _OcclusionStrength: 1

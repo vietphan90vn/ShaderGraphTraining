@@ -131,6 +131,7 @@ Material:
     - _Parallax: 0.04
     - _ProceduralBlend: 0.6
     - _ProceduralScale: 1
+    - _ProceduralTiling: 4
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5

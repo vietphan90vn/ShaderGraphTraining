@@ -200,7 +200,7 @@
                 InitializeInputData(input, surfaceData.normalTS, inputData);
 
             //  Apply lighting
-                half4 color = LuxLWRPTreeBarkFragment (
+                half4 color = LuxURPTreeBarkFragment (
                     inputData,
                     surfaceData.albedo,
                     surfaceData.specular,

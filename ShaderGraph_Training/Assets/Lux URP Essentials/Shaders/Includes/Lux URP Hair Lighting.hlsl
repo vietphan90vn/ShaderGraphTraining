@@ -159,15 +159,13 @@ half3 LightingHair_Lux(
     half NdotL = dot(normalWS, light.direction);
     half LdotV = dot(light.direction, viewDirectionWS);
     float invLenLV = rsqrt(max(2.0 * LdotV + 2.0, FLT_EPS));
+    float3 halfDir = (light.direction + viewDirectionWS) * invLenLV;
 
-    half3 H = (light.direction + viewDirectionWS) * invLenLV;
-
-    half3 hairSpec1 = specularTint * D_KajiyaKay_Lux(t1, H, roughness1);
+    half3 hairSpec1 = specularTint * D_KajiyaKay_Lux(t1, halfDir, roughness1);
     #if defined(_SECONDARYLOBE)
-        half3 hairSpec2 = secondarySpecularTint * D_KajiyaKay_Lux(t2, H, roughness2);
+        half3 hairSpec2 = secondarySpecularTint * D_KajiyaKay_Lux(t2, halfDir, roughness2);
     #endif
 
-    float3 halfDir = SafeNormalize(light.direction + viewDirectionWS);
     float NdotH = saturate(dot(normalWS, halfDir));
     half LdotH = saturate(dot(light.direction, halfDir));
 
@@ -196,10 +194,9 @@ half3 LightingHair_Lux(
 }
 
 
-half4 LuxLWRPHairFragment(
+half4 LuxURPHairFragment(
     InputData inputData,
     half3 tangentWS,
-    half3 bitangentWS,
     half3 albedo,
     half3 specular,
     half occlusion,
@@ -234,12 +231,17 @@ half4 LuxLWRPHairFragment(
 
     half geomNdotV = dot(inputData.normalWS, inputData.viewDirectionWS); 
 
+    
+//  Adjust tangentWS in case normal mapping is enabled
+    #if defined(_NORMALMAP)   
+        tangentWS = Orthonormalize(tangentWS, inputData.normalWS);
+    #endif
+//  Always calculate bitangent WS
+    half3 bitangentWS = cross(inputData.normalWS, tangentWS);
     #if defined(_STRANDDIR_BITANGENT)
-        // half3 strandDirWS = cross(inputData.normalWS, tangentWS); // missing sign...
-        half3 strandDirWS = normalize(-bitangentWS);
+        half3 strandDirWS = bitangentWS;
     #else
-        //half3 strandDirWS = cross(inputData.normalWS, bitangentWS);
-        half3 strandDirWS = normalize(tangentWS);
+        half3 strandDirWS = tangentWS;
     #endif
 
     half3 t1 = ShiftTangent_Lux(strandDirWS, inputData.normalWS, specularShift);
@@ -263,9 +265,8 @@ half4 LuxLWRPHairFragment(
 
 //  Additional Lights
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i) {
-
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i) {
             light = GetAdditionalLight(i, inputData.positionWS);
             color += LightingHair_Lux(albedo, specular, light, inputData.normalWS, geomNdotV, inputData.viewDirectionWS, pbRoughness1, pbRoughness2, t1, t2, specularTint, secondarySpecularTint, rimTransmissionIntensity);
         }
@@ -274,12 +275,7 @@ half4 LuxLWRPHairFragment(
     #ifdef _ADDITIONAL_LIGHTS_VERTEX
         color += inputData.vertexLighting * albedo;
     #endif
-
     color += emission;
-
-    return half4(color, 1); // alpha?
+    return half4(color, 1);
 }
-
-
-
 #endif

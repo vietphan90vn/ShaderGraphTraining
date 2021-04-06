@@ -34,6 +34,7 @@ void Lighting_half(
     half transmissionPower,
     half transmissionDistortion,
     half transmissionShadowstrength,
+    half transmissionMaskByShadowstrength,
 
 //  Lightmapping
     float2 lightMapUV,
@@ -97,10 +98,17 @@ void Lighting_half(
 
 //  Handle additional lights
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i) {
-            Light light = GetAdditionalLight(i, positionWS);
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i) {
+            //Light light = GetAdditionalLight(i, positionWS);
+            //  Get index upfront as we need it for GetAdditionalLightShadowParams();
+            int index = GetPerObjectLightIndex(i);
+            Light light = GetAdditionalPerObjectLight(index, positionWS);
             FinalLighting += LightingPhysicallyBased(brdfData, light, normalWS, viewDirectionWS);
+
+half4 shadowParams = GetAdditionalLightShadowParams(index);
+light.color *= lerp(1, shadowParams.x, transmissionMaskByShadowstrength); // shadowParams.x == shadow strength, which is 0 for point lights
+
         //  translucency
             transLightDir = light.direction + normalWS * transmissionDistortion;
             transDot = dot( transLightDir, -viewDirectionWS );
@@ -153,6 +161,7 @@ void Lighting_float(
     half transmissionPower,
     half transmissionDistortion,
     half transmissionShadowstrength,
+    half transmissionMaskByShadowstrength,
 
 //  Lightmapping
     float2 lightMapUV,
@@ -166,6 +175,6 @@ void Lighting_float(
     Lighting_half(
         positionWS, viewDirectionWS, normalWS, tangentWS, bitangentWS, enableNormalMapping, normalTS, 
         albedo, metallic, specular, smoothness, occlusion, alpha,
-        transmissionStrength, transmissionPower, transmissionDistortion, transmissionShadowstrength,
+        transmissionStrength, transmissionPower, transmissionDistortion, transmissionShadowstrength, transmissionMaskByShadowstrength,
         lightMapUV, MetaAlbedo, FinalLighting, MetaSpecular);
 }

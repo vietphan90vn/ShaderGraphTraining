@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18244371, g: 0.22815424, b: 0.30726835, a: 1}
+  m_IndirectSpecularColor: {r: 0.18244371, g: 0.22815421, b: 0.30726835, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -336,9 +336,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
-  m_CookingOptions: 14
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &552208499
 MeshRenderer:
@@ -408,11 +408,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: b364faa29e72548888c2afab434a31ad,
-        type: 3}
-      propertyPath: m_Name
-      value: SM_Rock_Ground (fuzzy)
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b364faa29e72548888c2afab434a31ad,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -488,6 +483,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0c4208fba44e341f381f7745fbe2f214, type: 2}
+    - target: {fileID: -927199367670048503, guid: b364faa29e72548888c2afab434a31ad,
+        type: 3}
+      propertyPath: m_Name
+      value: SM_Rock_Ground (fuzzy)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b364faa29e72548888c2afab434a31ad, type: 3}
 --- !u!4 &893248914 stripped
@@ -503,11 +503,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: b364faa29e72548888c2afab434a31ad,
-        type: 3}
-      propertyPath: m_Name
-      value: SM_Rock_Ground (standard)
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b364faa29e72548888c2afab434a31ad,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -583,6 +578,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f0a34a61460d94fab8c5cc63ffccf230, type: 2}
+    - target: {fileID: -927199367670048503, guid: b364faa29e72548888c2afab434a31ad,
+        type: 3}
+      propertyPath: m_Name
+      value: SM_Rock_Ground (standard)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b364faa29e72548888c2afab434a31ad, type: 3}
 --- !u!4 &905027152 stripped
@@ -598,11 +598,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 1b2bff45b74f74c7ea5f3dc9ac40552c,
-        type: 3}
-      propertyPath: m_Name
-      value: SM Rock (fuzzy)
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1b2bff45b74f74c7ea5f3dc9ac40552c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -678,6 +673,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0c4208fba44e341f381f7745fbe2f214, type: 2}
+    - target: {fileID: -927199367670048503, guid: 1b2bff45b74f74c7ea5f3dc9ac40552c,
+        type: 3}
+      propertyPath: m_Name
+      value: SM Rock (fuzzy)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b2bff45b74f74c7ea5f3dc9ac40552c, type: 3}
 --- !u!4 &964209127 stripped
@@ -879,11 +879,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 1b2bff45b74f74c7ea5f3dc9ac40552c,
-        type: 3}
-      propertyPath: m_Name
-      value: SM Rock (top down projection fuzzy)
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1b2bff45b74f74c7ea5f3dc9ac40552c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -959,6 +954,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fcb0b5f532b1f45ddb80da4f470fca77, type: 2}
+    - target: {fileID: -927199367670048503, guid: 1b2bff45b74f74c7ea5f3dc9ac40552c,
+        type: 3}
+      propertyPath: m_Name
+      value: SM Rock (top down projection fuzzy)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b2bff45b74f74c7ea5f3dc9ac40552c, type: 3}
 --- !u!4 &1486530274 stripped
@@ -1241,7 +1241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739253826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.35, y: 0.75, z: 2.8461754}
+  m_LocalPosition: {x: -3.35, y: 0.75, z: 2.647}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1348,7 +1348,6 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_CameraOutput: 0
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -1360,6 +1359,7 @@ MonoBehaviour:
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
+  m_ClearDepth: 1
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2

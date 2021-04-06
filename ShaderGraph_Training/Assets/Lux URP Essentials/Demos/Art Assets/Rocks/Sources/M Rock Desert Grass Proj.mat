@@ -88,7 +88,7 @@ Material:
     - _LowerNormalMinStrength: 0.1
     - _MaskFromNormal: 0
     - _Metallic: 0
-    - _NormalFactor: 1.083
+    - _NormalFactor: 1.05
     - _NormalLimit: 0.647
     - _Occlusion: 1
     - _OcclusionStrength: 1

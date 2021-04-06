@@ -138,10 +138,12 @@ void Lighting_half(
     brdfData.specular = specular;
 
     AdditionalData addData;
-//  The missing bits - checked with per vertex bitangent and tangent    
-    addData.bitangentWS = normalize( -cross(normalWS, tangentWS) ); //bitangentWS;
-//  We can get away with a single normalize here
-    addData.tangentWS = cross(normalWS, addData.bitangentWS); // tangentWS;
+//  Adjust tangentWS in case normal mapping is active
+    if (enableNormalMapping) {   
+        tangentWS = Orthonormalize(tangentWS, normalWS);
+    }           
+    addData.tangentWS = tangentWS;
+    addData.bitangentWS = cross(normalWS, tangentWS);
 
 //  GGX Aniso
     addData.roughnessT = brdfData.roughness * (1 + anisotropy);
@@ -153,7 +155,7 @@ void Lighting_half(
     addData.partLambdaV = GetSmithJointGGXAnisoPartLambdaV(TdotV, BdotV, NdotV, addData.roughnessT, addData.roughnessB);
 
 //  Set reflection normal and roughness – derived from GetGGXAnisotropicModifiedNormalAndRoughness
-    half3 grainDirWS = (anisotropy >= 0.0) ? bitangentWS : tangentWS;
+    half3 grainDirWS = (anisotropy >= 0.0) ? addData.bitangentWS : addData.tangentWS;
     half stretch = abs(anisotropy) * saturate(1.5h * sqrt(brdfData.perceptualRoughness));
     addData.anisoReflectionNormal = GetAnisotropicModifiedNormal(grainDirWS, normalWS, viewDirectionWS, stretch);
     half iblPerceptualRoughness = brdfData.perceptualRoughness * saturate(1.2 - abs(anisotropy));
@@ -183,12 +185,12 @@ void Lighting_half(
         half3 transLightDir = mainLight.direction + normalWS * transmissionDistortion;
         half transDot = dot( transLightDir, -viewDirectionWS );
         transDot = exp2(saturate(transDot) * transmissionPower - transmissionPower);
-        FinalLighting += brdfData.diffuse * transDot * (1.0 - NdotL) * mainLight.color * lerp(1.0h, mainLight.shadowAttenuation, transmissionShadowstrength) * transmissionStrength * 4;
+        FinalLighting += brdfData.diffuse * transDot * (1.0h - NdotL) * mainLight.color * lerp(1.0h, mainLight.shadowAttenuation, transmissionShadowstrength) * transmissionStrength * 4;
     }
 //  Handle additional lights
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i) {
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i) {
             Light light = GetAdditionalLight(i, positionWS);
             NdotL = saturate(dot(normalWS, light.direction ));
             FinalLighting += LightingPhysicallyBased_LuxGGXAniso(brdfData, addData, light, normalWS, viewDirectionWS, NdotL);
@@ -198,7 +200,7 @@ void Lighting_half(
                 half transDot = dot( transLightDir, -viewDirectionWS );
                 transDot = exp2(saturate(transDot) * transmissionPower - transmissionPower);
                 NdotL = saturate(dot(normalWS, light.direction));
-                FinalLighting += brdfData.diffuse * transDot * (1.0 - NdotL) * light.color * lerp(1.0h, light.shadowAttenuation, transmissionShadowstrength) * light.distanceAttenuation * transmissionStrength * 4;
+                FinalLighting += brdfData.diffuse * transDot * (1.0h - NdotL) * light.color * lerp(1.0h, light.shadowAttenuation, transmissionShadowstrength) * light.distanceAttenuation * transmissionStrength * 4;
             }
         }
     #endif

@@ -49,7 +49,7 @@ Material:
     - _AlphaFromMaskMap: 1
     - _Anisotropy: 0
     - _ApplyNormal: 1
-    - _BumpScale: 0.2
+    - _BumpScale: 0.3
     - _ClearCoatSmoothness: 0.9
     - _ClearCoatThickness: 0.9
     - _Cull: 2
@@ -57,6 +57,7 @@ Material:
     - _Cutoff: 0.5
     - _Distortion: 0.01
     - _EnableAlphaTesting: 0
+    - _EnableBaseMap: 0
     - _EnableCoatMask: 0
     - _EnableMaskMap: 0
     - _EnableSecColor: 0
@@ -70,6 +71,7 @@ Material:
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReadMask: 255
+    - _ReceiveShadows: 1
     - _Rim: 0
     - _RimFrequency: 0
     - _RimMinPower: 1

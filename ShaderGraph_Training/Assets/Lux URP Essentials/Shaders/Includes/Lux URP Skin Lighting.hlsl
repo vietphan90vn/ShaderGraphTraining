@@ -48,7 +48,7 @@ half3 DirectBDRF_Lux(BRDFData brdfData, half3 normalWS, half3 lightDirectionWS, 
     half3 color = specularTerm * brdfData.specular; // + brdfData.diffuse;
     return color;
 #else
-    return brdfData.diffuse;
+    return 0; //brdfData.diffuse;
 #endif
 }
 
@@ -80,8 +80,8 @@ half3 LightingPhysicallyBasedSkin(BRDFData brdfData, Light light, half3 normalWS
 }
 
 
-half4 LuxLWRPSkinFragmentPBR(InputData inputData, half3 albedo, half metallic, half3 specular,
-    half smoothness, half occlusion, half3 emission, half alpha, half4 translucency, half AmbientReflection, half3 diffuseNormalWS, half3 subsurfaceColor, half curvature, half skinMask)
+half4 LuxURPSkinFragmentPBR(InputData inputData, half3 albedo, half metallic, half3 specular,
+    half smoothness, half occlusion, half3 emission, half alpha, half4 translucency, half AmbientReflection, half3 diffuseNormalWS, half3 subsurfaceColor, half curvature, half skinMask, half maskbyshadowstrength, half backScatter)
 {
     BRDFData brdfData;
     InitializeBRDFData(albedo, metallic, specular, smoothness, alpha, brdfData);
@@ -89,7 +89,12 @@ half4 LuxLWRPSkinFragmentPBR(InputData inputData, half3 albedo, half metallic, h
     Light mainLight = GetMainLight(inputData.shadowCoord);
     MixRealtimeAndBakedGI(mainLight, inputData.normalWS, inputData.bakedGI, half4(0, 0, 0, 0));
 
-half3 color = GlobalIllumination_Lux(brdfData, inputData.bakedGI, occlusion, inputData.normalWS, inputData.viewDirectionWS,     AmbientReflection);
+	half3 color = GlobalIllumination_Lux(brdfData, inputData.bakedGI, occlusion, inputData.normalWS, inputData.viewDirectionWS,     AmbientReflection);
+
+//  Backscattering
+    #if defined(_BACKSCATTER)
+        color += backScatter * SampleSH(-diffuseNormalWS) * albedo * occlusion * translucency.x * subsurfaceColor * skinMask;
+    #endif
 
     half NdotLUnclamped = dot(diffuseNormalWS, mainLight.direction);
     half NdotL = saturate( dot(inputData.normalWS, mainLight.direction) );
@@ -100,24 +105,29 @@ half3 color = GlobalIllumination_Lux(brdfData, inputData.bakedGI, occlusion, inp
     half3 transLightDir = mainLight.direction + inputData.normalWS * translucency.w;
     half transDot = dot( transLightDir, -inputData.viewDirectionWS );
     transDot = exp2(saturate(transDot) * transPower - transPower);
-    color += skinMask * subsurfaceColor * transDot * (1.0 - saturate(NdotLUnclamped)) * mainLight.color * lerp(1.0h, mainLight.shadowAttenuation, translucency.z) * translucency.x;
-
+    color += skinMask * subsurfaceColor * transDot * (1.0h - saturate(NdotLUnclamped)) * mainLight.color * lerp(1.0h, mainLight.shadowAttenuation, translucency.z) * translucency.x;
 
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i)
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i)
         {
-            Light light = GetAdditionalLight(i, inputData.positionWS);
+            //Light light = GetAdditionalLight(i, inputData.positionWS);
+        //  Get index upfront as we need it for GetAdditionalLightShadowParams();
+            int index = GetPerObjectLightIndex(i);
+            Light light = GetAdditionalPerObjectLight(index, inputData.positionWS);
 
             half NdotLUnclamped = dot(diffuseNormalWS, light.direction);
             NdotL = saturate( dot(inputData.normalWS, light.direction) );
             color += LightingPhysicallyBasedSkin(brdfData, light, inputData.normalWS, inputData.viewDirectionWS, NdotL, NdotLUnclamped, curvature, skinMask);
 
+half4 shadowParams = GetAdditionalLightShadowParams(index);
+light.color *= lerp(1, shadowParams.x, maskbyshadowstrength); // shadowParams.x == shadow strength, which is 0 for point lights
+
         //  Subsurface Scattering
             transLightDir = light.direction + inputData.normalWS * translucency.w;
             transDot = dot( transLightDir, -inputData.viewDirectionWS );
             transDot = exp2(saturate(transDot) * transPower - transPower);
-            color += skinMask * subsurfaceColor * transDot * (1.0 - NdotL) * light.color * lerp(1.0h, light.shadowAttenuation, translucency.z) * light.distanceAttenuation * translucency.x;
+            color += skinMask * subsurfaceColor * transDot * (1.0h - saturate(NdotLUnclamped)) * light.color * lerp(1.0h, light.shadowAttenuation, translucency.z) * light.distanceAttenuation * translucency.x;
         }
     #endif
     #ifdef _ADDITIONAL_LIGHTS_VERTEX

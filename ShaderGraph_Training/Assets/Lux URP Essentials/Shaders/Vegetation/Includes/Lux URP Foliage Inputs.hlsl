@@ -17,32 +17,26 @@
 
 //  Material Inputs
     CBUFFER_START(UnityPerMaterial)
-
-        //half4 _BaseColor;
-
         float4 _BaseMap_ST;
         half _Cutoff;
         half _Smoothness;
         half3 _SpecColor;
         half4 _WindMultiplier;
-
         float _SampleSize;
-
         //#ifdef _NORMALMAP
             half _GlossMapScale;
+            half _BumpScale;
         //#endif
-
         float2 _DistanceFade;
-
         half _TranslucencyPower;
         half _TranslucencyStrength;
         half _ShadowStrength;
+        half _MaskByShadowStrength;
         half _Distortion;
-
-        #if defined(DEBUG)
+        //#if defined(DEBUG)
             half _DebugColor;
             half _Brightness;
-        #endif
+        //#endif
     CBUFFER_END
 
 //  Additional textures
@@ -72,28 +66,22 @@
     {
         float4 positionCS                   : SV_POSITION;
         float2 uv                           : TEXCOORD0;
-
         half fade                           : TEXCOORD9;
-
         #if !defined(UNITY_PASS_SHADOWCASTER) && !defined(DEPTHONLYPASS)
             DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 1);
             #if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
                 float3 positionWS           : TEXCOORD2;
             #endif
+            float3 normalWS                 : TEXCOORD3;
+            float3 viewDirWS                : TEXCOORD4;
             #ifdef _NORMALMAP
-                half4 normalWS              : TEXCOORD3;
-                half4 tangentWS             : TEXCOORD4;
-                half4 bitangentWS           : TEXCOORD5;
-            #else
-                half3 normalWS              : TEXCOORD3;
-                half3 viewDirWS             : TEXCOORD4;
+                float4 tangentWS            : TEXCOORD5;
             #endif
             half4 fogFactorAndVertexLight   : TEXCOORD6;
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
                 float4 shadowCoord          : TEXCOORD7;
             #endif
         #endif
-
         #if defined(DEBUG)
             half4 color                     : COLOR;
         #endif
@@ -117,7 +105,7 @@
 
 
     half4 SmoothCurve( half4 x ) {   
-    return x * x *( 3.0h - 2.0h * x );   
+        return x * x *( 3.0h - 2.0h * x );   
     }
     half4 TriangleWave( half4 x ) {   
         return abs( frac( x + 0.5h ) * 2.0h - 1.0h );   
@@ -127,7 +115,7 @@
     }
 
     half2 SmoothCurve( half2 x ) {   
-    return x * x *( 3.0h - 2.0h * x );   
+        return x * x *( 3.0h - 2.0h * x );   
     }
     half2 TriangleWave( half2 x ) {   
         return abs( frac( x + 0.5h ) * 2.0h - 1.0h );   
@@ -144,7 +132,7 @@
     void animateVertex(half4 animParams, half3 normalOS, inout float3 positionOS) {
 
         float origLength = length(positionOS.xyz);
-        half3 windDir = mul(UNITY_MATRIX_I_M, float4(_LuxLWRPWindDirSize.xyz, 0)).xyz;
+        float3 windDir = mul(UNITY_MATRIX_I_M, float4(_LuxLWRPWindDirSize.xyz, 0)).xyz;
 
         half fDetailAmp = 0.1h;
         half fBranchAmp = 0.3h;
@@ -152,11 +140,9 @@
     #if !defined(_WIND_MATH)
         float2 samplePos = TransformObjectToWorld(positionOS.xyz * _SampleSize).xz * _LuxLWRPWindDirSize.ww;
         
-        
         half fVtxPhase = dot( normalize(positionOS.xyz), ((animParams.g + animParams.r) * 0.5).xxx );
-        half4 wind = SAMPLE_TEXTURE2D_LOD(_LuxLWRPWindRT, sampler_LuxLWRPWindRT, samplePos.xy, _WindMultiplier.w);
+        float4 wind = SAMPLE_TEXTURE2D_LOD(_LuxLWRPWindRT, sampler_LuxLWRPWindRT, samplePos.xy, _WindMultiplier.w);
 
-        
     //  Factor in bending params from Material
         animParams.abg *= _WindMultiplier.xyz;
     //  Make math match
@@ -168,23 +154,21 @@
     //  Second texture sample taking phase into account
         wind = SAMPLE_TEXTURE2D_LOD(_LuxLWRPWindRT, sampler_LuxLWRPWindRT, samplePos.xy - animParams.rr * 0.5, _WindMultiplier.w);
     //  Edge Flutter
-        half3 bend = normalOS.xyz * (animParams.g * fDetailAmp * lerp(_LuxLWRPSinTime.y, _LuxLWRPSinTime.z, wind.r));
+        float3 bend = normalOS.xyz * (animParams.g * fDetailAmp * lerp(_LuxLWRPSinTime.y, _LuxLWRPSinTime.z, wind.r));
         bend.y = animParams.b * 0.3h;
     //  Edge Flutter and Secondary Bending
         positionOS.xyz += ( bend + ( animParams.b  *  windDir * wind.r * (wind.g * 2.0h - 0.243h) ) ) * foliageMainWindStrengthFromZone; 
         
-
     #else
         float3 objectWorldPos = UNITY_MATRIX_M._m03_m13_m23;
 
     //  Animate incoming wind
-        half3 absObjectWorldPos = abs(objectWorldPos.xyz * 0.125h);
+        float3 absObjectWorldPos = abs(objectWorldPos.xyz * 0.125h);
         float sinuswave = _SinTime.z;
         half2 vOscillations = SmoothTriangleWave( half2(absObjectWorldPos.x + sinuswave, absObjectWorldPos.z + sinuswave * 0.7h) );
         // x used for main wind bending / y used for tumbling
         half2 fOsc = (vOscillations.xy * vOscillations.xy);
         fOsc = 0.75h + (fOsc + 3.33h) * 0.33h;
-
 
         half fObjPhase = dot(objectWorldPos, 1);
         half fBranchPhase = fObjPhase + animParams.r;
@@ -194,24 +178,20 @@
         animParams.abg *= _WindMultiplier.xyz;
 
         // x is used for edges; y is used for branches
-        half2 vWavesIn = _Time.yy + half2(fVtxPhase, fBranchPhase);
+        float2 vWavesIn = _Time.yy + half2(fVtxPhase, fBranchPhase); // changed to float (android issues)
         // 1.975, 0.793, 0.375, 0.193 are good frequencies
-        half4 vWaves = (frac( vWavesIn.xxyy * half4(1.975h, 0.793h, 0.375h, 0.193h) ) * 2.0h - 1.0h);
+        half4 vWaves = frac( vWavesIn.xxyy * float4(1.975f, 0.793f, 0.375f, 0.193f) ) * 2.0f - 1.0f; // changed to float (android issues)
         vWaves = SmoothTriangleWave( vWaves );
         half2 vWavesSum = vWaves.xz + vWaves.yw;
 
     //  Primary bending / animated by * fOsc.x
         positionOS.xz += animParams.a   *   windDir.xz * foliageMainWindStrengthFromZone * fOsc.x;
 
-        half3 bend = normalOS.xyz * (animParams.g * fDetailAmp);
+        float3 bend = normalOS.xyz * (animParams.g * fDetailAmp);
         bend.y = animParams.b * fBranchAmp;
 
         positionOS.xyz += ( (vWavesSum.xyx * bend) + (animParams.b   *   windDir * fOsc.y * vWavesSum.y) ) * foliageMainWindStrengthFromZone;
     #endif
-
         positionOS.xyz = normalize(positionOS.xyz) * origLength;
-
     }
-
-
 #endif

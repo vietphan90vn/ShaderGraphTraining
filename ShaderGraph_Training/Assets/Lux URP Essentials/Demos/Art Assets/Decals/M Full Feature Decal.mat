@@ -39,6 +39,7 @@ Material:
     - _DecalNormal: 0
     - _DecalNormalStrength: 0.5
     - _EnvironmentReflections: 1
+    - _HQSampling: 0
     - _Occlusion: 0.5
     - _OrthoSpport: 0
     - _ReadMask: 1

@@ -25,7 +25,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 8692b92230ac24666b3140770ba78c7a, type: 3}
+        m_Texture: {fileID: 2800000, guid: c3bb1d5298b924d80959c9f822ffe414, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CoatMask:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -33,6 +37,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SecondaryMask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -49,13 +57,20 @@ Material:
     - _Cutoff: 0.5
     - _Distortion: 0.01
     - _EnableAlphaTesting: 0
+    - _EnableCoatMask: 0
     - _EnableMaskMap: 0
     - _EnableSecColor: 0
+    - _EnableSecondaryLobe: 0
+    - _EnableSecondaryMask: 0
+    - _EnableStandardLighting: 0
     - _EnvironmentReflections: 1
     - _Help: 0
+    - _Metallic: 0.145
+    - _Occlusion: 1
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReadMask: 255
+    - _ReceiveShadows: 1
     - _Rim: 0
     - _RimFrequency: 0
     - _RimMinPower: 1

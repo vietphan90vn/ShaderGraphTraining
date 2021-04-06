@@ -17,9 +17,11 @@
 //  Material Inputs
     CBUFFER_START(UnityPerMaterial)
 
+        half4  _BaseColor;
+        half3 _SpecularColor;
+
         float4 _BaseMap_ST;
         half _Smoothness;
-        half3 _SpecColor;
         
         half _BumpScale;
         half _Bias;
@@ -30,13 +32,16 @@
         half _OcclusionStrength;
 
         half3 _SubsurfaceColor;
+        half _SampleCurvature;
         half _Curvature;        
         float2 _DistanceFade;
 
         half _TranslucencyPower;
         half _TranslucencyStrength;
         half _ShadowStrength;
+        half _MaskByShadowStrength;
         half _Distortion;
+        half _AmbientReflectionStrength;
 
         #if defined(_RIMLIGHTING)
             half4 _RimColor;
@@ -45,6 +50,10 @@
             half _RimFrequency;
             half _RimPerPositionFrequency;
         #endif
+
+        half _Backscatter;
+        half _VertexNormal;
+
     CBUFFER_END
 
 //  Additional textures
@@ -68,21 +77,16 @@
     {
         float4 positionCS                   : SV_POSITION;
         float2 uv                           : TEXCOORD0;
-
         half fade                           : TEXCOORD9;
-
         #if !defined(UNITY_PASS_SHADOWCASTER) && !defined(DEPTHONLYPASS)
             DECLARE_LIGHTMAP_OR_SH(lightmapUV, vertexSH, 1);
             #if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
                 float3 positionWS           : TEXCOORD2;
             #endif
+            float3 normalWS                 : TEXCOORD3;
+            float3 viewDirWS                : TEXCOORD4;
             #ifdef _NORMALMAP
-                half4 normalWS              : TEXCOORD3;
-                half4 tangentWS             : TEXCOORD4;
-                half4 bitangentWS           : TEXCOORD5;
-            #else
-                half3 normalWS              : TEXCOORD3;
-                half3 viewDirWS             : TEXCOORD4;
+                float4 tangentWS            : TEXCOORD5;
             #endif
             half4 fogFactorAndVertexLight   : TEXCOORD6;
             #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
@@ -107,6 +111,7 @@
         half occlusion;
         half translucency;
         half skinMask;
+        half curvature;
     };
 
 #endif

@@ -121,6 +121,7 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _TopDownTiling: 0.25
+    - _VertexColors: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:

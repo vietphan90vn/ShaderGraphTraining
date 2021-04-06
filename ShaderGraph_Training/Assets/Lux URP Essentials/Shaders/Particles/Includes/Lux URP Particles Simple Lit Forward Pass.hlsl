@@ -202,11 +202,11 @@ VaryingsParticle ParticlesLitVertex(AttributesParticle input)
         #endif
 
         #if defined (_ADDITIONALLIGHT_SHADOWS)
-            int pixelLightCount = GetAdditionalLightsCount();
+            uint pixelLightCount = GetAdditionalLightsCount();
         //  Limit pixelLightCount to 3 as we only have 4 entries ( last one used by the directional light)
             pixelLightCount = min(3, pixelLightCount);
             float shadow[3] = {(1), (1), (1)};
-            for (int i = 0; i < pixelLightCount; i++) {
+            for (uint i = 0u; i < pixelLightCount; ++i) {
                 int PerObjectLightIndex = GetPerObjectLightIndex(i);
             //  DX11 does not like this
                 //output.lighting[i] = AdditionalLightRealtimeShadow(PerObjectLightIndex, output.positionWS.xyz);
@@ -269,12 +269,12 @@ half4 LuxBlinnPhong(InputData inputData, half3 diffuse, half4 specularGloss, hal
     half3 specularColor = LightingSpecular(attenuatedLightColor, mainLight.direction, inputData.normalWS, inputData.viewDirectionWS, specularGloss, smoothness);
 
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
+        uint pixelLightCount = GetAdditionalLightsCount();
         #if defined(_PERVERTEX_SHADOWS) && defined(_ADDITIONALLIGHT_SHADOWS)
         //  Metal does not like to access the components using indices?! So we chose another way.
             float shadow[4] = {(inputLighting.x), (inputLighting.y), (inputLighting.z), (inputLighting.w)};
         #endif
-        for (int i = 0; i < pixelLightCount; i++) {
+        for (uint i = 0u; i < pixelLightCount; ++i) {
             Light light = GetAdditionalLight(i, inputData.positionWS);
             #if defined(_PERVERTEX_SHADOWS)
             //  Here shadowAttenuation never gets used so it should be stripped by the compiler...

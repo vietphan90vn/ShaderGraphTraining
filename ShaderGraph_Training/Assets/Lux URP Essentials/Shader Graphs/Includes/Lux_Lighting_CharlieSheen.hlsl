@@ -199,13 +199,13 @@ void Lighting_half(
         half3 transLightDir = mainLight.direction + normalWS * transmissionDistortion;
         half transDot = dot( transLightDir, -viewDirectionWS );
         transDot = exp2(saturate(transDot) * transmissionPower - transmissionPower);
-        FinalLighting += brdfData.diffuse * transDot * (1.0 - NdotL) * mainLight.color * lerp(1.0h, mainLight.shadowAttenuation, transmissionShadowstrength) * transmissionStrength * 4;
+        FinalLighting += brdfData.diffuse * transDot * (1.0h - NdotL) * mainLight.color * lerp(1.0h, mainLight.shadowAttenuation, transmissionShadowstrength) * transmissionStrength * 4;
     }
 
 //  Handle additional lights
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i) {
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i) {
             Light light = GetAdditionalLight(i, positionWS);
             NdotL = saturate(dot(normalWS, light.direction ));
             FinalLighting += LightingPhysicallyBased_LuxCharlieSheen(brdfData, addData, light, normalWS, viewDirectionWS, NdotL);
@@ -215,7 +215,7 @@ void Lighting_half(
                 half transDot = dot( transLightDir, -viewDirectionWS );
                 transDot = exp2(saturate(transDot) * transmissionPower - transmissionPower);
                 NdotL = saturate(dot(normalWS, light.direction));
-                FinalLighting += brdfData.diffuse * transDot * (1.0 - NdotL) * light.color * lerp(1.0h, light.shadowAttenuation, transmissionShadowstrength) * light.distanceAttenuation * transmissionStrength * 4;
+                FinalLighting += brdfData.diffuse * transDot * (1.0h - NdotL) * light.color * lerp(1.0h, light.shadowAttenuation, transmissionShadowstrength) * light.distanceAttenuation * transmissionStrength * 4;
             }
         }
     #endif

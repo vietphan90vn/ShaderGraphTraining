@@ -1,0 +1,787 @@
+Using pre-set license
+Built from '2020.3/release' branch; Version is '2020.3.2f1 (8fd9074bf66c) revision 9427207'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 18363.1440; Version 1909; 64bit' Language: 'en' Physical Memory: 16342 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.2f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/Administrator/Documents/MyProjects/ShaderGraphTraining/ShaderGraph_Training
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+1438
+Successfully changed project path to: C:/Users/Administrator/Documents/MyProjects/ShaderGraphTraining/ShaderGraph_Training
+C:/Users/Administrator/Documents/MyProjects/ShaderGraphTraining/ShaderGraph_Training
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 92.99 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.2f1 (8fd9074bf66c)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/Administrator/Documents/MyProjects/ShaderGraphTraining/ShaderGraph_Training/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1060 3GB (ID=0x1c02)
+    Vendor:   
+    VRAM:     2988 MB
+    Driver:   27.21.14.5751
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56240
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.018284 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 218.28 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.030 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.005910 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 121.09 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.827 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Lux URP/Particles/Simple Lit': fallback shader 'Lightweight Render Pipeline/Particles/Unlit' not found
+Shader 'Lux URP/Particles/Simple Lit': fallback shader 'Lightweight Render Pipeline/Particles/Unlit' not found
+Shader 'Lux URP/Particles/Simple Lit': fallback shader 'Lightweight Render Pipeline/Particles/Unlit' not found
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 1.13 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3798 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 216.7 MB.
+System memory in use after: 216.7 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 4249.
+Total: 9.809800 ms (FindLiveObjects: 0.460000 ms CreateObjectMapping: 0.449200 ms MarkObjects: 8.661500 ms  DeleteObjects: 0.236900 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Lux URP Essentials/Demos/Versatile Blend Demo.unity
+  artifactKey: Guid(57c0eb587df69c047880b21716e82331) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Versatile Blend Demo.unity using Guid(57c0eb587df69c047880b21716e82331) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1529e4bae32e11c8ea5435bd83896db2') in 0.049368 seconds
+  Import took 0.060492 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000223 seconds.
+  path: Assets/Lux URP Essentials/Demos/Wind Setup.unity
+  artifactKey: Guid(94baa67dd2769444d9fda9d9f65bfa42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Wind Setup.unity using Guid(94baa67dd2769444d9fda9d9f65bfa42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '449e059097b248ebaca7fafa8b046ba2') in 0.015190 seconds
+  Import took 0.026782 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000333 seconds.
+  path: Assets/Lux URP Essentials/Demos/Volumetrics Demo.unity
+  artifactKey: Guid(9d2d06893674e4c568fc515558d51e8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Volumetrics Demo.unity using Guid(9d2d06893674e4c568fc515558d51e8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a2ac29e2892325e1864933b21503a4a') in 0.011534 seconds
+  Import took 0.019931 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 53.682911 seconds.
+  path: Assets/Lux URP Essentials/Demos/Vegetation Demo.unity
+  artifactKey: Guid(75223b62d0080ea49806c2bf8eda31f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Vegetation Demo.unity using Guid(75223b62d0080ea49806c2bf8eda31f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef7e292454ef800e47a81b00fb85c1e8') in 0.013265 seconds
+  Import took 0.022006 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 170.482948 seconds.
+  path: Assets/Lux URP Essentials/Demos/Tree Creator Demo.unity
+  artifactKey: Guid(5fc4049b64d6a9a4d920066433529768) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Tree Creator Demo.unity using Guid(5fc4049b64d6a9a4d920066433529768) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f63046cc0da5a709d39265c6b5b6c14') in 0.009291 seconds
+  Import took 0.019862 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 62.371034 seconds.
+  path: Assets/Lux URP Essentials/Demos/Transmission Demo.unity
+  artifactKey: Guid(4c4c3af3ad183dd4889b806c00225c3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Transmission Demo.unity using Guid(4c4c3af3ad183dd4889b806c00225c3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1cecf4450d78c4297e3bded0ed99ba45') in 0.009649 seconds
+  Import took 0.017686 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000646 seconds.
+  path: Assets/Lux URP Essentials/Demos/Transmission Demo.unity
+  artifactKey: Guid(4c4c3af3ad183dd4889b806c00225c3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Transmission Demo.unity using Guid(4c4c3af3ad183dd4889b806c00225c3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1cecf4450d78c4297e3bded0ed99ba45') in 0.002552 seconds
+  Import took 0.012158 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.543974 seconds.
+  path: Assets/Lux URP Essentials/Demos/Toon Demo.unity
+  artifactKey: Guid(1a3156832261ee14da6c5ca757898111) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Toon Demo.unity using Guid(1a3156832261ee14da6c5ca757898111) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b372273fea937e36059f4d210d58170') in 0.017193 seconds
+  Import took 0.028445 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 133.876596 seconds.
+  path: Assets/Lux URP Essentials/Demos/Terrain Demo.unity
+  artifactKey: Guid(580ce777fadca4d0a98196270054ab99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Terrain Demo.unity using Guid(580ce777fadca4d0a98196270054ab99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6b274ec7a8d6fef79a637f9130dfa1e') in 0.009597 seconds
+  Import took 0.017519 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.462471 seconds.
+  path: Assets/Lux URP Essentials/Demos/Outline Runtime Demo.unity
+  artifactKey: Guid(4f05540192c1c4c459db884ec15984fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Outline Runtime Demo.unity using Guid(4f05540192c1c4c459db884ec15984fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8992ad3233b2fb244184a974a1450f26') in 0.007768 seconds
+  Import took 0.016916 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 66.527394 seconds.
+  path: Assets/Lux URP Essentials/Demos/Lit Particles Demo.unity
+  artifactKey: Guid(2418faf57ce095343922c1dd8bfb76b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Lit Particles Demo.unity using Guid(2418faf57ce095343922c1dd8bfb76b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd72e8a3b3e80243470392b1e7f18701d') in 0.008429 seconds
+  Import took 0.020070 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 153.082448 seconds.
+  path: Assets/Lux URP Essentials/Demos/Human Demo.unity
+  artifactKey: Guid(95c4f3e47dff7a84f865557dd094da43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Human Demo.unity using Guid(95c4f3e47dff7a84f865557dd094da43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f5b052ab4e2b2873e930d5d0a77619e') in 0.008451 seconds
+  Import took 0.017190 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 32.671064 seconds.
+  path: Assets/Lux URP Essentials/Demos/Decals Demo.unity
+  artifactKey: Guid(8122531cd97fd4d35b8234d6548b8329) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Decals Demo.unity using Guid(8122531cd97fd4d35b8234d6548b8329) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e09021111146e02ec5afde841b24236e') in 0.011355 seconds
+  Import took 0.018513 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.176897 seconds.
+  path: Assets/Lux URP Essentials/Demos/Cloth Demo.unity
+  artifactKey: Guid(bcf22499f29f0194fab603e6898f4f20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Cloth Demo.unity using Guid(bcf22499f29f0194fab603e6898f4f20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b00fac42c6985e26ec6c321d543d894') in 0.009482 seconds
+  Import took 0.016919 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.460176 seconds.
+  path: Assets/Lux URP Essentials/Demos/Custom Shader Graphs Demo.unity
+  artifactKey: Guid(f304530f4df8c448ebb65dbda22defb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Custom Shader Graphs Demo.unity using Guid(f304530f4df8c448ebb65dbda22defb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b715ddbc728a83c6a9e2baf9bb555a64') in 0.009981 seconds
+  Import took 0.017504 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000657 seconds.
+  path: Assets/Lux URP Essentials/Demos/Custom Shader Graphs Demo.unity
+  artifactKey: Guid(f304530f4df8c448ebb65dbda22defb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Custom Shader Graphs Demo.unity using Guid(f304530f4df8c448ebb65dbda22defb9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b715ddbc728a83c6a9e2baf9bb555a64') in 0.003176 seconds
+  Import took 0.011324 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 90.440246 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Uber_AOfromGI.mat
+  artifactKey: Guid(c7b329efe7ca0e44ab0d8fddf342817a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Uber_AOfromGI.mat using Guid(c7b329efe7ca0e44ab0d8fddf342817a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd0e384a93f9856f83d5dae1c449c7348') in 0.834897 seconds
+  Import took 0.843890 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000304 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Lit_Uber_Parallax.mat
+  artifactKey: Guid(0b5579953896885488b2660cf362b86e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Lit_Uber_Parallax.mat using Guid(0b5579953896885488b2660cf362b86e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '164281974574b6024c17e92b5f0a1409') in 0.075033 seconds
+  Import took 0.082443 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000212 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Uber_Dither.mat
+  artifactKey: Guid(3ccf1a7324dd6eb44b6276fcfec96b15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Uber_Dither.mat using Guid(3ccf1a7324dd6eb44b6276fcfec96b15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e56d8e63ac1bc62574924af1544f803') in 0.565665 seconds
+  Import took 0.572786 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000229 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Lit Extended/Includes/Lux URP Uber Lit Pass.hlsl
+  artifactKey: Guid(093bf204033e16d44a5ad3ff747891e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Lit Extended/Includes/Lux URP Uber Lit Pass.hlsl using Guid(093bf204033e16d44a5ad3ff747891e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2fa6e13d3c65ed5ffb4cd86cc62736e2') in 0.018364 seconds
+  Import took 0.026720 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000193 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Sponza_simple.mat
+  artifactKey: Guid(3086a0b3eeaff7741b64c32928b56100) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Sponza_simple.mat using Guid(3086a0b3eeaff7741b64c32928b56100) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '120bc7c9966a4dd6f2b9b79ccbe467fa') in 0.036800 seconds
+  Import took 0.048814 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000212 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Lit_Uber_Parallax_CutOut.mat
+  artifactKey: Guid(04f9108b4e6b32546a272f272e7fcb3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Lit_Uber_Parallax_CutOut.mat using Guid(04f9108b4e6b32546a272f272e7fcb3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b97c1ddd765714155d43f42ae156efd') in 0.049641 seconds
+  Import took 0.065098 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000249 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Sponza_bentNormals.mat
+  artifactKey: Guid(ac2f85d0a0afb014084c2ef6d3198a15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Uber/Materials/M_Sponza_bentNormals.mat using Guid(ac2f85d0a0afb014084c2ef6d3198a15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6f7a3168696e98eca4144380f3038df') in 0.571258 seconds
+  Import took 0.583016 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000204 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Lit Extended/Lux URP Lit Extended Uber.shader
+  artifactKey: Guid(fc65687ee1044b44a8ad796f88d69a92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Lit Extended/Lux URP Lit Extended Uber.shader using Guid(fc65687ee1044b44a8ad796f88d69a92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'afbf06654e7fd77bd1ccee28ca167869') in 0.016777 seconds
+  Import took 0.024554 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000196 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Volumetrics/Materials/M Uber Test.mat
+  artifactKey: Guid(178940821da234e259455d6eac2d19c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Volumetrics/Materials/M Uber Test.mat using Guid(178940821da234e259455d6eac2d19c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '552f03793834194786bc55be2121fca2') in 0.027364 seconds
+  Import took 0.038110 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000269 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Uber/Meshes/Sponza_Lion.fbx
+  artifactKey: Guid(7ea25cc837991024383db03fa93fa5d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Uber/Meshes/Sponza_Lion.fbx using Guid(7ea25cc837991024383db03fa93fa5d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a17e9e4e084c91c2bd17d1ee8c332eb') in 0.538330 seconds
+  Import took 0.545843 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000207 seconds.
+  path: Assets/Lux URP Essentials/Shader Graphs/Lux ClearCoat Graph.shadergraph
+  artifactKey: Guid(b68459ce107b931479bbe1e9c95a512a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shader Graphs/Lux ClearCoat Graph.shadergraph using Guid(b68459ce107b931479bbe1e9c95a512a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5fcc6ee5f357b3a64461f648b006e66d') in 0.018086 seconds
+  Import took 0.026454 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000200 seconds.
+  path: Assets/Lux URP Essentials/Shader Graphs/Lux Charlie Sheen Graph.shadergraph
+  artifactKey: Guid(0c2bd8e8eada88142af7bc5ecf4a02a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shader Graphs/Lux Charlie Sheen Graph.shadergraph using Guid(0c2bd8e8eada88142af7bc5ecf4a02a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57d1f642de6d5a4cda4e05c4767296d3') in 0.020882 seconds
+  Import took 0.034314 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000216 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Custom Shader Graphs/Transparents/Shader Graphs_Simple Multiply.mat
+  artifactKey: Guid(a29d4b4f6b67c40ce8bd22dd733e208f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Custom Shader Graphs/Transparents/Shader Graphs_Simple Multiply.mat using Guid(a29d4b4f6b67c40ce8bd22dd733e208f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '470e90f8d0396fdf79ae1dcce6f0f36a') in 0.029352 seconds
+  Import took 0.036455 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000187 seconds.
+  path: Assets/Lux URP Essentials/Demos/Fonts/ZwriteFont.shader
+  artifactKey: Guid(001cc32e4d7f04306be26d2f123078c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Fonts/ZwriteFont.shader using Guid(001cc32e4d7f04306be26d2f123078c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7635e287e18c5c926b4a26f92f7f1f99') in 0.024038 seconds
+  Import took 0.033299 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000267 seconds.
+  path: Assets/Lux URP Essentials/Shader Graphs/Lux GGX Anisotropic Graph.shadergraph
+  artifactKey: Guid(82ab1dfcc6d9a284588187f50a3751b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shader Graphs/Lux GGX Anisotropic Graph.shadergraph using Guid(82ab1dfcc6d9a284588187f50a3751b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a33e53a97a790aaf41ef03cc44cd103') in 0.025302 seconds
+  Import took 0.033922 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000210 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Custom Shader Graphs/Transparents/Shader Graphs_Compare.mat
+  artifactKey: Guid(a5239cc9c84f24b7d8f26cb33b49aec0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Custom Shader Graphs/Transparents/Shader Graphs_Compare.mat using Guid(a5239cc9c84f24b7d8f26cb33b49aec0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3816de5472bfb09847cdc46bdcbb7f87') in 0.026057 seconds
+  Import took 0.040079 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000223 seconds.
+  path: Assets/Lux URP Essentials/Shader Graphs/Lux Improved Sampling.shadergraph
+  artifactKey: Guid(c4a495da370ddc44a886512faf738efe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shader Graphs/Lux Improved Sampling.shadergraph using Guid(c4a495da370ddc44a886512faf738efe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f628546f8bda1cf31cafc274874289b8') in 0.012989 seconds
+  Import took 0.025337 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000243 seconds.
+  path: Assets/Lux URP Essentials Dev/Grass Displacement/Shaders/Lux LWRP Displacement Unlit.shader
+  artifactKey: Guid(8512bb55ce4f44c7c9a75ce50491b24c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials Dev/Grass Displacement/Shaders/Lux LWRP Displacement Unlit.shader using Guid(8512bb55ce4f44c7c9a75ce50491b24c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3dfb157fc53714da065dd412fc6fc2eb') in 0.010520 seconds
+  Import took 0.019787 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000268 seconds.
+  path: Assets/Lux URP Essentials/Shader Graphs/Lux Flat Shading.shadergraph
+  artifactKey: Guid(065e82289c1ce934fa53118934a6e1df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shader Graphs/Lux Flat Shading.shadergraph using Guid(065e82289c1ce934fa53118934a6e1df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '133195dbe147520ae068cc8d2eae173f') in 0.027459 seconds
+  Import took 0.045975 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000202 seconds.
+  path: Assets/Lux URP Essentials/Lux SRP Grass Displacement/Shaders/Simple Displacement FX.shader
+  artifactKey: Guid(b4487ac48409b41a5b91942d75ee26c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Lux SRP Grass Displacement/Shaders/Simple Displacement FX.shader using Guid(b4487ac48409b41a5b91942d75ee26c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '067d7e6f9d56ce5d07600269b941bb0b') in 0.018585 seconds
+  Import took 0.027480 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000202 seconds.
+  path: Assets/Lux URP Essentials/Lux SRP Grass Displacement/Shaders/Vegetation/Lux URP Grass TextureDisplace.shader
+  artifactKey: Guid(8c8623e042d9b4082b79d39fc2b7fb56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Lux SRP Grass Displacement/Shaders/Vegetation/Lux URP Grass TextureDisplace.shader using Guid(8c8623e042d9b4082b79d39fc2b7fb56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a74457fbb895e80e2468fcc4e2e50a5') in 0.013125 seconds
+  Import took 0.027246 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000437 seconds.
+  path: Assets/Lux URP Essentials/Lux SRP Grass Displacement/Shaders/Debug/DebugDisplacement.shader
+  artifactKey: Guid(ee572380e18c94e45988a689699bb2b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Lux SRP Grass Displacement/Shaders/Debug/DebugDisplacement.shader using Guid(ee572380e18c94e45988a689699bb2b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '344b4dbe15626b79c643456a42ccb54f') in 0.020549 seconds
+  Import took 0.033490 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000261 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Lit Extended/Editor/LuxUberShaderGUI.cs
+  artifactKey: Guid(e8ba48e772b204c11b9cc0d6f6c99b2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Lit Extended/Editor/LuxUberShaderGUI.cs using Guid(e8ba48e772b204c11b9cc0d6f6c99b2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d32ddc5a9d454e40dc45b29a44d2d15') in 0.021751 seconds
+  Import took 0.028963 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002705 seconds.
+  path: Assets/Lux URP Essentials/Lux SRP Grass Displacement/Shaders/Simple Displacement FX Debug.shader
+  artifactKey: Guid(d7274fa4832425743962ade532f41352) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Lux SRP Grass Displacement/Shaders/Simple Displacement FX Debug.shader using Guid(d7274fa4832425743962ade532f41352) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c5d9dd541666df5ff24474f596144e8b') in 0.015806 seconds
+  Import took 0.028709 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000237 seconds.
+  path: Assets/Lux URP Essentials/Scripts/Resources/Lux URP WindComposite.shader
+  artifactKey: Guid(5200a42e9863a46618ce8179542527d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Scripts/Resources/Lux URP WindComposite.shader using Guid(5200a42e9863a46618ce8179542527d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13aa8127214ec05327b0cbd7475245c1') in 0.011337 seconds
+  Import took 0.106106 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.184691 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Custom Shader Graphs/Transmission/M Transmission Graph Candle.mat
+  artifactKey: Guid(f41de2585a3c64d8da0b234700e24f4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Custom Shader Graphs/Transmission/M Transmission Graph Candle.mat using Guid(f41de2585a3c64d8da0b234700e24f4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7ccdda42c1ef89f56c2d0fef6968ee71') in 0.929856 seconds
+  Import took 0.951625 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000236 seconds.
+  path: Assets/Lux URP Essentials/Shader Graphs/Lux Toon Graph.shadergraph
+  artifactKey: Guid(1e3a7ceba5de5454994740dbac06195a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shader Graphs/Lux Toon Graph.shadergraph using Guid(1e3a7ceba5de5454994740dbac06195a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de9f4185420cec9f10880804b27a1bb7') in 0.011323 seconds
+  Import took 0.021255 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000322 seconds.
+  path: Assets/Lux URP Essentials/Shader Graphs/Lux Transmission Graph Candle.shadergraph
+  artifactKey: Guid(1474f6b4298900e4aaf0eee07195d3e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shader Graphs/Lux Transmission Graph Candle.shadergraph using Guid(1474f6b4298900e4aaf0eee07195d3e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1513535f3e9c215c0b859934a1de1385') in 0.014119 seconds
+  Import took 0.021278 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000213 seconds.
+  path: Assets/_MyPractice/GrassVertextDisplacement/Shader Graphs_OverlayMod.mat
+  artifactKey: Guid(06d01b90f91f5c346b2d590eecb80a5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_MyPractice/GrassVertextDisplacement/Shader Graphs_OverlayMod.mat using Guid(06d01b90f91f5c346b2d590eecb80a5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8c5df403fc71b6a36a16fa2db55ccad5') in 0.849527 seconds
+  Import took 0.857223 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000213 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Custom Shader Graphs/Clear Coat/M ClearCoat Graph.mat
+  artifactKey: Guid(5cdf027febd46416b8579534b7c59036) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Custom Shader Graphs/Clear Coat/M ClearCoat Graph.mat using Guid(5cdf027febd46416b8579534b7c59036) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3967af0fcdf71636b50e9d22e36d0a8a') in 0.773345 seconds
+  Import took 0.782945 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000204 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Custom Shader Graphs/Transmission/M Transmission Graph Simple.mat
+  artifactKey: Guid(e9edbcf3d8e8c4537b141786750aecdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Custom Shader Graphs/Transmission/M Transmission Graph Simple.mat using Guid(e9edbcf3d8e8c4537b141786750aecdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e23b5713f7c1e3638d62c728720f6dc0') in 1.084482 seconds
+  Import took 1.092149 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000231 seconds.
+  path: Assets/Lux URP Essentials Dev/Grass Displacement
+  artifactKey: Guid(2a8bd9878032ddf4999d830139068e1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials Dev/Grass Displacement using Guid(2a8bd9878032ddf4999d830139068e1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0e0b1115e42dd8f1ed2d8c500a0dc1c2') in 0.012527 seconds
+  Import took 0.019988 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000183 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Billboards/Icon Billboard/M Lux Icon Billboard.mat
+  artifactKey: Guid(4d81c3decddd4488c98205eadc08ea01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Billboards/Icon Billboard/M Lux Icon Billboard.mat using Guid(4d81c3decddd4488c98205eadc08ea01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59ffcb902f425773e2b1c9a830331544') in 0.322309 seconds
+  Import took 0.336379 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000207 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Billboards/PF Billboard Spruce.prefab
+  artifactKey: Guid(605bee35b59cb4f1fadb5cdfd53a3560) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Billboards/PF Billboard Spruce.prefab using Guid(605bee35b59cb4f1fadb5cdfd53a3560) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af1ae79043448c0d75cc29c68e5179af') in 0.573087 seconds
+  Import took 0.580480 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000203 seconds.
+  path: Assets/Dependencies/Lux URP Essentials/ChangeLog.txt
+  artifactKey: Guid(04a23cf252d8e9949936428f5c772362) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Lux URP Essentials/ChangeLog.txt using Guid(04a23cf252d8e9949936428f5c772362) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f3dea230aaf2204366ed5c4b0d5bf4ea') in 0.017520 seconds
+  Import took 0.028417 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000204 seconds.
+  path: Assets/Lux URP Essentials/Shader Graphs/Lux Toon Graph Uncolored Shadows.shadergraph
+  artifactKey: Guid(398641f4cdcf77d4e8821351e7124cb5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shader Graphs/Lux Toon Graph Uncolored Shadows.shadergraph using Guid(398641f4cdcf77d4e8821351e7124cb5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfb9fbefe65552fb89860f97fe6b43e6') in 0.014364 seconds
+  Import took 0.032634 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000290 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Billboards/Spruce Billboard/M Spruce Billboard.mat
+  artifactKey: Guid(73973e19643274d6ab5e72a911394b0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Billboards/Spruce Billboard/M Spruce Billboard.mat using Guid(73973e19643274d6ab5e72a911394b0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bfb2a3b5d260dc8a3b866332e0a07eac') in 0.016055 seconds
+  Import took 0.065659 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000880 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Billboards/Icon Billboard
+  artifactKey: Guid(6392b72dd424141a7aed0cca955a6c75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Billboards/Icon Billboard using Guid(6392b72dd424141a7aed0cca955a6c75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa903363e6425effdefb0c94f57e61db') in 0.018569 seconds
+  Import took 0.028746 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000221 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Billboards/Spruce Billboard
+  artifactKey: Guid(5cf0f71f8855b40a0876c8548067fdc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Billboards/Spruce Billboard using Guid(5cf0f71f8855b40a0876c8548067fdc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e7c050f5544ab5d877f29b0a82cb148') in 0.009991 seconds
+  Import took 0.018333 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000214 seconds.
+  path: Assets/Lux URP Essentials Dev/Grass Displacement.unity
+  artifactKey: Guid(c3fa8159305dc44e69521356bb45da17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials Dev/Grass Displacement.unity using Guid(c3fa8159305dc44e69521356bb45da17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e529382acb973d03855bcd3e9653d09b') in 0.023276 seconds
+  Import took 0.061664 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/Lux URP Essentials/Shader Graphs/Lux Transmission Graph Simple.shadergraph
+  artifactKey: Guid(9c6db33c5f8c0d84ca6c4d29be158db8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shader Graphs/Lux Transmission Graph Simple.shadergraph using Guid(9c6db33c5f8c0d84ca6c4d29be158db8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81dd71de534c7dc07f6ac4eb288ff428') in 0.010808 seconds
+  Import took 0.038550 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000201 seconds.
+  path: Assets/Dependencies
+  artifactKey: Guid(1688d245524adb349b5f08c42d53777e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies using Guid(1688d245524adb349b5f08c42d53777e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '858b5c2c23474924cad2c93652b7959c') in 0.012255 seconds
+  Import took 0.019732 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000181 seconds.
+  path: Assets/_MyPractice/VertexColorDebug/Shader Graphs_VertexColorDebug.mat
+  artifactKey: Guid(c12824b00e644364ba62ff96bdeb5023) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_MyPractice/VertexColorDebug/Shader Graphs_VertexColorDebug.mat using Guid(c12824b00e644364ba62ff96bdeb5023) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b4c74d1cf5558d1d76e850501690b30') in 0.065857 seconds
+  Import took 0.078718 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000205 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Materials/Outline Overview/M Depth Culling Inverted Outline Blue.mat
+  artifactKey: Guid(187ec6783cc964c989724617b0135e48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Materials/Outline Overview/M Depth Culling Inverted Outline Blue.mat using Guid(187ec6783cc964c989724617b0135e48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a59b2e61ef82340e16c7310a17bf6c80') in 0.031399 seconds
+  Import took 0.040000 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000214 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Glass/M Glass Wine Inner.mat
+  artifactKey: Guid(6fa1e273fe633457f96aecc5098c3bd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Glass/M Glass Wine Inner.mat using Guid(6fa1e273fe633457f96aecc5098c3bd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd3ec8fea30af16cb6a487d8f61c9a1a2') in 0.705384 seconds
+  Import took 0.713063 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000196 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Terrain/Includes/TerrainLitInput.hlsl
+  artifactKey: Guid(48fb320e99216447081d3295d6b86f33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Terrain/Includes/TerrainLitInput.hlsl using Guid(48fb320e99216447081d3295d6b86f33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a0cd386f877f1221a561153cf5d52a42') in 0.025040 seconds
+  Import took 0.033711 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000200 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Clear Coat/Includes/Lux URP Clear Coat Inputs.hlsl
+  artifactKey: Guid(e51e056cd2949402d885f8323c77e948) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Clear Coat/Includes/Lux URP Clear Coat Inputs.hlsl using Guid(e51e056cd2949402d885f8323c77e948) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef547b22474393dd6d4ac8cd61b577f6') in 0.032001 seconds
+  Import took 0.040386 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000260 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Transmission/Includes/Lux URP Transmission Inputs.hlsl
+  artifactKey: Guid(355111154e9aa1b499370e1bbf177b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Transmission/Includes/Lux URP Transmission Inputs.hlsl using Guid(355111154e9aa1b499370e1bbf177b1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '89d29b31014276f2afe2081cf332a00a') in 0.015901 seconds
+  Import took 0.030086 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Materials/Outline Overview/M Depth Culling Inverted Outline Orange.mat
+  artifactKey: Guid(6b02dfcc843234a90a75ea8abf33597c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Materials/Outline Overview/M Depth Culling Inverted Outline Orange.mat using Guid(6b02dfcc843234a90a75ea8abf33597c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c32bd4abfcbd0e37d5b7d47b23a10f7a') in 0.030484 seconds
+  Import took 0.040907 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000226 seconds.
+  path: Assets/ShaderGraph_ExampleLibrary/Standard Assets/Prototyping/Models/JoinInnerPrototype01x06x01.fbx
+  artifactKey: Guid(f45b6695d6226cd48abfc605723cc3ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ShaderGraph_ExampleLibrary/Standard Assets/Prototyping/Models/JoinInnerPrototype01x06x01.fbx using Guid(f45b6695d6226cd48abfc605723cc3ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0df337522eee042919267784f0d2b3e') in 0.516187 seconds
+  Import took 0.524388 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000197 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Glass/Includes/Lux URP Glass Inputs.hlsl
+  artifactKey: Guid(58ee8c0f9198f72499b9b3bc4e695d0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Glass/Includes/Lux URP Glass Inputs.hlsl using Guid(58ee8c0f9198f72499b9b3bc4e695d0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e1c326f416fed4fd4fc530e4600e1ba') in 0.024189 seconds
+  Import took 0.033223 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000068 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Volumetrics/Materials/M Inside.mat
+  artifactKey: Guid(e4432f894ca6f4083b3bfbe6c93d04c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Volumetrics/Materials/M Inside.mat using Guid(e4432f894ca6f4083b3bfbe6c93d04c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c8e09bf24568319c5825a7588d8c4310') in 0.773352 seconds
+  Import took 0.784681 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/ShaderGraph_ExampleLibrary/Standard Assets/Prototyping/Prefabs/JoinInnerPrototype01x06x01.prefab
+  artifactKey: Guid(9ae7f9f9eacff4142b21eb85ae606fdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ShaderGraph_ExampleLibrary/Standard Assets/Prototyping/Prefabs/JoinInnerPrototype01x06x01.prefab using Guid(9ae7f9f9eacff4142b21eb85ae606fdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb5cee232ba1671172f3270c042af418') in 0.027676 seconds
+  Import took 0.035730 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000171 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Human/Includes/Lux URP Hair Inputs.hlsl
+  artifactKey: Guid(165f165799f164a8280b7a1de5aa843b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Human/Includes/Lux URP Hair Inputs.hlsl using Guid(165f165799f164a8280b7a1de5aa843b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'baa22e5741f677f097fa4a9166d2131b') in 0.011586 seconds
+  Import took 0.026401 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000327 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Cloth/Includes/Lux URP Cloth Inputs.hlsl
+  artifactKey: Guid(0cdd4e8f150694200a4384888f48effd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Cloth/Includes/Lux URP Cloth Inputs.hlsl using Guid(0cdd4e8f150694200a4384888f48effd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7d10268ecd1fd3200c04025e4bc80f4') in 0.033692 seconds
+  Import took 0.043431 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000200 seconds.
+  path: Assets/_MyPractice/LWVegetation/InputSurfaceVegetation.hlsl
+  artifactKey: Guid(1e4ede27aa9ff45f0961cfe1038a639b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_MyPractice/LWVegetation/InputSurfaceVegetation.hlsl using Guid(1e4ede27aa9ff45f0961cfe1038a639b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be31da004cd20411eee07aed53a4856c') in 0.020844 seconds
+  Import took 0.036769 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000064 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Vegetation/Includes/Lux URP Foliage Inputs.hlsl
+  artifactKey: Guid(f862385642fc79c4fb383c80a45263f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Vegetation/Includes/Lux URP Foliage Inputs.hlsl using Guid(f862385642fc79c4fb383c80a45263f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16bcfe15ef31eeb6d73dfb781f658df9') in 0.017902 seconds
+  Import took 0.025629 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000601 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Glass/Sources/glass_inandoutandbottom.fbx
+  artifactKey: Guid(507ed91b8cbd140d382411836e930705) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Glass/Sources/glass_inandoutandbottom.fbx using Guid(507ed91b8cbd140d382411836e930705) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db67538a48ce72fd56e9677b1313fd95') in 0.048560 seconds
+  Import took 0.056930 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000947 seconds.
+  path: Assets/Lux URP Essentials/Lux SRP Grass Displacement/Shaders/Vegetation/Includes/Lux URP Grass Inputs.hlsl
+  artifactKey: Guid(c57a56d43842745a19b3d3fe46315929) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Lux SRP Grass Displacement/Shaders/Vegetation/Includes/Lux URP Grass Inputs.hlsl using Guid(c57a56d43842745a19b3d3fe46315929) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b31c070b044092ec774f1af6a5f0e0b8') in 0.018337 seconds
+  Import took 0.029843 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000244 seconds.
+  path: Assets/Lux URP Essentials/CangeLog.txt
+  artifactKey: Guid(f0c60205c227a474ea7e02886a2ad92d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/CangeLog.txt using Guid(f0c60205c227a474ea7e02886a2ad92d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f377f3383aff0e0f8609de24feea5d5e') in 0.018191 seconds
+  Import took 0.030184 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000191 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Billboards/PF Billboard Lux Icon.prefab
+  artifactKey: Guid(2889ac8c4e0a34a6aaaab5ca84e890d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Billboards/PF Billboard Lux Icon.prefab using Guid(2889ac8c4e0a34a6aaaab5ca84e890d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3544e0ac7bfda923d2600368ae8b0a86') in 0.022552 seconds
+  Import took 0.037510 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000223 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Flat Shaded/Includes/Lux URP Flat Shaded Inputs.hlsl
+  artifactKey: Guid(6a755d6a9ed59428d90cb1dcd8f0861f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Flat Shaded/Includes/Lux URP Flat Shaded Inputs.hlsl using Guid(6a755d6a9ed59428d90cb1dcd8f0861f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f81bd17c2dfad433d1f9fa649f472e1b') in 0.020498 seconds
+  Import took 0.036379 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000195 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Materials/Outline Overview/M Depth Culling Inverted Lit Stencilwrite.mat
+  artifactKey: Guid(c869bf6bfcf1f4922865534a57d7bcfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Materials/Outline Overview/M Depth Culling Inverted Lit Stencilwrite.mat using Guid(c869bf6bfcf1f4922865534a57d7bcfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61a3552256e1af5ffcc6960fc265eaba') in 0.491253 seconds
+  Import took 0.497802 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000264 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Billboard/Includes/Lux URP Billboard Inputs.hlsl
+  artifactKey: Guid(6154f9c4e025f47db9b7a6c59e3413d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Billboard/Includes/Lux URP Billboard Inputs.hlsl using Guid(6154f9c4e025f47db9b7a6c59e3413d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dcefec79358927953e29883563a572d4') in 0.009813 seconds
+  Import took 0.016336 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000237 seconds.
+  path: Assets/_MyPractice/Outline-Testing/Shader Graphs_Outline.mat
+  artifactKey: Guid(765cbc9590ff4d84ab84be4547001078) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_MyPractice/Outline-Testing/Shader Graphs_Outline.mat using Guid(765cbc9590ff4d84ab84be4547001078) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b52036fdc8968ee40b3e21248f10f913') in 0.564894 seconds
+  Import took 0.572440 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000249 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Vegetation/Includes/Lux URP Grass Inputs.hlsl
+  artifactKey: Guid(c97a3b6a5f299415ca25ce02d9613d85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Vegetation/Includes/Lux URP Grass Inputs.hlsl using Guid(c97a3b6a5f299415ca25ce02d9613d85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1afa5b38b5b2d9421af093d224e8a127') in 0.005775 seconds
+  Import took 0.014203 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000189 seconds.
+  path: Assets/Lux URP Essentials/Demos/Art Assets/Terrain Demo/M Built In Terrain.mat
+  artifactKey: Guid(5af1829831f1646e7b0e36f11b4028f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Demos/Art Assets/Terrain Demo/M Built In Terrain.mat using Guid(5af1829831f1646e7b0e36f11b4028f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '239bf2f71c6ea9a8ed0bdd7debc73eda') in 0.022002 seconds
+  Import took 0.032186 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000199 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Human/Includes/Lux URP Skin Inputs.hlsl
+  artifactKey: Guid(9361186e516104bebbdba1544d6e1e3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Human/Includes/Lux URP Skin Inputs.hlsl using Guid(9361186e516104bebbdba1544d6e1e3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '195dfa7d3ede9e64e58837051c9b64a3') in 0.029009 seconds
+  Import took 0.035741 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000272 seconds.
+  path: Assets/Lux URP Essentials/Shaders/Projection/Includes/Top Down URP Inputs.hlsl
+  artifactKey: Guid(cc7de07f3084840169c7e949a3024b4b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Lux URP Essentials/Shaders/Projection/Includes/Top Down URP Inputs.hlsl using Guid(cc7de07f3084840169c7e949a3024b4b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21cf4795763246978f0f46e98a97797c') in 0.019964 seconds
+  Import took 0.035821 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001912 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.94 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.536 seconds
+Platform modules already initialized, skipping
+Shader 'Lux URP/Particles/Simple Lit': fallback shader 'Lightweight Render Pipeline/Particles/Unlit' not found
+Shader 'Lux URP/Particles/Simple Lit': fallback shader 'Lightweight Render Pipeline/Particles/Unlit' not found
+Shader 'Lux URP/Particles/Simple Lit': fallback shader 'Lightweight Render Pipeline/Particles/Unlit' not found
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 0.93 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3525 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 200.4 MB.
+System memory in use after: 200.5 MB.
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 4336.
+Total: 7.106300 ms (FindLiveObjects: 0.841800 ms CreateObjectMapping: 0.524200 ms MarkObjects: 5.096900 ms  DeleteObjects: 0.641400 ms)
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

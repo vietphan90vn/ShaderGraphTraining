@@ -213,7 +213,7 @@ Shader "Lux URP/Nature/Tree Creator Leaves"
                 InitializeInputData(input, surfaceData.normalTS, inputData);
 
             //  Apply lighting
-                half4 color = LuxLWRPTreeLeafFragmentPBR (
+                half4 color = LuxURPTreeLeafFragmentPBR (
                     inputData, 
                     surfaceData.albedo,
                     surfaceData.specular, 

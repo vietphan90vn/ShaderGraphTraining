@@ -99,7 +99,7 @@
         half3 GlobalIllumination_LuxClearCoat(BRDFData brdfData, AdditionalData addData, half3 bakedGI, half occlusion, half3 normalWS, half3 baseNormalWS, half3 viewDirectionWS, half NdotV)
         {
             half3 reflectVector = reflect(-viewDirectionWS, normalWS);
-            half fresnelTerm = Pow4(1.0 - NdotV);
+            half fresnelTerm = Pow4(1.0h - NdotV);
 
             half3 indirectDiffuse = bakedGI * occlusion; 
             half3 indirectSpecular = GlossyEnvironmentReflection(reflectVector, addData.perceptualRoughness, addData.specOcclusion);
@@ -262,8 +262,8 @@ void Lighting_half(
 
 //  Handle additional lights
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i) {
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i) {
             Light light = GetAdditionalLight(i, positionWS);
             FinalLighting += LightingPhysicallyBased_LuxClearCoat(brdfData, addData, light, normalWS, viewDirectionWS);
         }

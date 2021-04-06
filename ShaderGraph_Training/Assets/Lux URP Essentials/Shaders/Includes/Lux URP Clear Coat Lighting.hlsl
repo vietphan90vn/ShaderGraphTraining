@@ -161,7 +161,6 @@ half4 LuxClearCoatFragmentPBR(InputData inputData, half3 albedo, half metallic, 
         albedo = baseColor;
     #endif
 
-
     BRDFData brdfData;
     InitializeBRDFData(albedo, metallic, specular, smoothness, alpha, brdfData);
 
@@ -232,8 +231,8 @@ half4 LuxClearCoatFragmentPBR(InputData inputData, half3 albedo, half metallic, 
     color += LightingPhysicallyBased_LuxClearCoat(brdfData, addData, mainLight, inputData.normalWS, inputData.viewDirectionWS);
 
     #ifdef _ADDITIONAL_LIGHTS
-        int pixelLightCount = GetAdditionalLightsCount();
-        for (int i = 0; i < pixelLightCount; ++i)
+        uint pixelLightCount = GetAdditionalLightsCount();
+        for (uint i = 0u; i < pixelLightCount; ++i)
         {
             Light light = GetAdditionalLight(i, inputData.positionWS);
             color += LightingPhysicallyBased_LuxClearCoat(brdfData, addData, light, inputData.normalWS, inputData.viewDirectionWS);

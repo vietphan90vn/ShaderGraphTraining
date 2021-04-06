@@ -115,7 +115,7 @@ Material:
     - _ShadowCull: 0
     - _ShadowStrength: 1
     - _Shadows: 0
-    - _Smoothness: 0.938
+    - _Smoothness: 0.92
     - _SmoothnessTextureChannel: 0
     - _SpecularExponent: 0.8
     - _SpecularHighlights: 1

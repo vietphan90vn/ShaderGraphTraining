@@ -51,8 +51,11 @@ Material:
     - _NormalWidth: 0
     - _Offset: 0
     - _ReceiveShadows: 1
+    - _ShadowShift: 1
+    - _ShadowShiftThreshold: 0.05
+    - _ShadowShiftView: 0
     - _Shadows: 0
-    - _Shift: 0.0133
+    - _Shift: 0.02
     - _Smoothness: 0.5
     - _SpecularHighlights: 1
     - _ZWrite: 1
